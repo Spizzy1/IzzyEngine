@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(izzyengine VERSION 0.0.1)
 
-
-add_executable(izzyengine src/main.c)
-target_link_libraries(izzyengine glfw GLEW GL m)
-ADD_CUSTOM_COMMAND(TARGET izzyengine POST_BUILD COMMAND izzyengine WORKING_DIRECTORY ../src)
+set(SOURCE_FILES
+    src/textures/textures.c
+    src/meshes/meshes.c
+    src/shaders/shaders.c
+    src/main.c
+)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+target_link_libraries(${PROJECT_NAME} glfw GLEW GL m)
