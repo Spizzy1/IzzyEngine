@@ -3,8 +3,51 @@
 #include "shaders/shaders.h"
 #include "meshes/meshes.h"
 
+int left = 0;
+int right = 0;
+int up = 0;
+int down = 0;
+
+void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mods){
+    if(action == GLFW_PRESS){
+        
+        switch (key)
+        {
+            case GLFW_KEY_W:
+                up = 1;
+                break;
+            case GLFW_KEY_S:
+                down = 1;
+                break;
+            case GLFW_KEY_A:
+                left = 1; 
+                break;
+            case GLFW_KEY_D:
+                right = 1;
+                break;
+        }
+    }
+    else if(action == GLFW_RELEASE){
+        switch (key)
+        {
+            case GLFW_KEY_W:
+                up = 0;
+                break;
+            case GLFW_KEY_S:
+                down = 0;
+                break;
+            case GLFW_KEY_A:
+                left = 0; 
+                break;
+            case GLFW_KEY_D:
+                right = 0;
+                break;
+        }
+    }
+}
+
+
 int main(int, char**){
-    
 
     const int width = 640; 
     const int height = 480;
@@ -65,16 +108,58 @@ int main(int, char**){
     printf("Shaders loaded\n");
     
     const int utex = glGetUniformLocation(shader->ID, "tex");
-    
+    const int ucx = glGetUniformLocation(shader->ID, "cx");
+    const int ucz = glGetUniformLocation(shader->ID, "cz");
+    const int ucd = glGetUniformLocation(shader->ID, "cd");
+
     
 
     struct Texture* friren = load_image("Frierenfriday.png");
     printf("Finished loading textures\n");
+
+    float camera_x = 0;
+    float camera_z = 0;
+    float direction = 0;
+    
+    float targetFps = 60;
+    float lTime = 0;
+    int lSecond = 0;
+    int frameCount = 0;
+
+    glfwSetTime(0);
+    glfwSetKeyCallback(window, eventHandling);
     while(!glfwWindowShouldClose(window)){
+        while (glfwGetTime() - lTime < 1 / targetFps);
+        if (glfwGetTime() - 1 >= lSecond)
+        {
+            lSecond++;
+            frameCount = 0;
+        }
+        lTime += 1 / targetFps;
+        frameCount++;
         glfwPollEvents();
+        if(left){
+            direction-= 0.01;
+        }
+        if(right){
+            direction+= 0.01;
+        }
+        if(up){
+            camera_z+= cos(direction)*0.01;
+            camera_x+= sin(direction)*0.01;
+        }
+        if(down){
+            camera_z-= cos(direction)*0.01;
+            camera_x-= sin(direction)*0.01;
+        }
+        
         glClear(GL_COLOR_BUFFER_BIT);
         select_shader(shader);
         select_texture(friren, utex);
+        glUniform1f(ucx, camera_x);
+        glUniform1f(ucz, camera_z);
+        glUniform1f(ucd, direction);
+
         render_mesh(mesh);
         glfwSwapBuffers(window);
     }
