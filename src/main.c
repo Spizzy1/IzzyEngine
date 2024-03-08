@@ -111,7 +111,7 @@ int main(int, char**){
     const int ucx = glGetUniformLocation(shader->ID, "cx");
     const int ucz = glGetUniformLocation(shader->ID, "cz");
     const int ucd = glGetUniformLocation(shader->ID, "cd");
-
+    const int urotate = glGetUniformLocation(shader->ID, "rotate");
     
 
     struct Texture* friren = load_image("Frierenfriday.png");
@@ -120,7 +120,8 @@ int main(int, char**){
     float camera_x = 0;
     float camera_z = 0;
     float direction = 0;
-    
+    float rotate = 0;
+
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -145,20 +146,22 @@ int main(int, char**){
             direction+= 0.01;
         }
         if(up){
-            camera_z+= cos(direction)*0.01;
-            camera_x+= sin(direction)*0.01;
+            camera_z+= cos(direction)*0.03;
+            camera_x+= sin(direction)*0.03;
         }
         if(down){
-            camera_z-= cos(direction)*0.01;
-            camera_x-= sin(direction)*0.01;
+            camera_z-= cos(direction)*0.03;
+            camera_x-= sin(direction)*0.03;
         }
         
+        rotate+= 0.12;
         glClear(GL_COLOR_BUFFER_BIT);
         select_shader(shader);
         select_texture(friren, utex);
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
+        glUniform1f(urotate, rotate);
 
         render_mesh(mesh);
         glfwSwapBuffers(window);
