@@ -1,8 +1,8 @@
-[submodule "IzzyEngine/Dependancies/glew"]
-    path = IzzyEngine/Dependancies/glew
+[submodule "Dependancies/glew"]
+    path = Dependancies/glew
     url = https://github.com/Perlmint/glew-cmake
     branch = master
-[submodule "IzzyEngine/Dependancies/glfw"]
-    path = IzzyEngine/Dependancies/glfw
+[submodule "Dependancies/glfw"]
+    path = Dependancies/glfw
     url = https://github.com/glfw/glfw
     branch = master
