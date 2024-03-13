@@ -7,5 +7,16 @@ set(SOURCE_FILES
     src/shaders/shaders.c
     src/main.c
 )
+
+add_subdirectory(Dependancies/glew)
+add_subdirectory(Dependancies/glfw)
+
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} glfw GLEW GL m)
+
+if(WIN32)
+    target_link_libraries(${PROJECT_NAME} glfw libglew_static m)
+
+endif()
+if(LINUX)
+    target_link_libraries(${PROJECT_NAME} glfw GLEW GL m)
+endif()
