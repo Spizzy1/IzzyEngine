@@ -47,7 +47,7 @@ void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mo
 }
 
 
-int main(int, char**){
+int main(int arg, char** args){
 
     const int width = 640; 
     const int height = 480;
@@ -129,6 +129,7 @@ int main(int, char**){
 
     glfwSetTime(0);
     glfwSetKeyCallback(window, eventHandling);
+    glEnableClientState(GL_VERTEX_ARRAY);
     while(!glfwWindowShouldClose(window)){
         while (glfwGetTime() - lTime < 1 / targetFps);
         if (glfwGetTime() - 1 >= lSecond)
@@ -162,7 +163,6 @@ int main(int, char**){
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
         glUniform1f(urotate, rotate);
-
         render_mesh(mesh);
         glfwSwapBuffers(window);
     }

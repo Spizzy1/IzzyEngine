@@ -33,7 +33,7 @@ struct Shader* loadshader(const char* name){
     rewind(fptr);
     char* file = malloc(sizeof(char) * size);
     fread(file, 1, size, fptr);
-    printf("Last char: %d", file[size-1]);
+    printf("Last char: %d\n", file[size-1]);
     int begin = 0;
     int shader_type=0;
     int new_shader_type=0;
@@ -41,21 +41,23 @@ struct Shader* loadshader(const char* name){
     int reading = false;
     printf("Parsing shader file\n");
     for(int i = 0; i < size; i++){
-        if(file[i] == '\n' && size - i > 9){
-            char str[10];
-            memcpy(str, file+i, 10);
-            if(!strcmp("\n--VERT--\n", str)){
+        if(file[i] == '\n' && size - i > 8){
+            char str[8];
+            memcpy(str, file+i+1, 8);
+            str[8] = '\0';
+            printf("%s\n", str);
+            if(!strcmp("--VERT--", str)){
                 new_shader_type = GL_VERTEX_SHADER;
                 printf("Compiling vertex shader\n");
                 load = true;
             }
-            else if(!strcmp("\n--FRAG--\n", str)){
+            else if(!strcmp("--FRAG--", str)){
                 new_shader_type = GL_FRAGMENT_SHADER;
                 printf("Compiling fragment shader\n");
 
                 load = true;
             }
-            else if(!strcmp("\n--GMTR--\n", str)){
+            else if(!strcmp("--GMTR--", str)){
                 new_shader_type = GL_GEOMETRY_SHADER;
                 printf("Compiling geometry shader\n");
 

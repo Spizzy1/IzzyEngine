@@ -1,8 +1,7 @@
 #include "../libraries.h"
 #include "textures.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
+#include <stb_image.h>
 
 void select_texture(struct Texture* texture, int uniform){
     if(texture){
