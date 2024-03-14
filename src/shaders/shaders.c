@@ -45,7 +45,6 @@ struct Shader* loadshader(const char* name){
             char str[8];
             memcpy(str, file+i+1, 8);
             str[8] = '\0';
-            printf("%s\n", str);
             if(!strcmp("--VERT--", str)){
                 new_shader_type = GL_VERTEX_SHADER;
                 printf("Compiling vertex shader\n");
@@ -66,7 +65,7 @@ struct Shader* loadshader(const char* name){
         }
         if((load || i == size-1)){
             if(reading){
-                printf("%x\n", shader_type);
+                printf("Shader type: %x\n", shader_type);
                 i+= i==size-1;
                 printf("Reading Subfile\n");
                 char* subfile = malloc(i-begin+1);

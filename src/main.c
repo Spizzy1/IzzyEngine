@@ -95,7 +95,7 @@ int main(int arg, char** args){
     printf("Assigning & Generating Vertex Buffer\n");
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
+    
     printf("Loading shaders...\n");
     struct Shader* shader = loadshader("spriteshader.glsl");
     printf("Assigning attribute pointer 1\n");
@@ -137,7 +137,7 @@ int main(int arg, char** args){
             lSecond++;
             frameCount = 0;
         }
-        lTime += 1 / targetFps;
+        lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
         frameCount++;
         glfwPollEvents();
         if(left){
