@@ -8,8 +8,10 @@ set(SOURCE_FILES
     src/main.c
 )
 
-add_subdirectory(Dependancies/glew)
-add_subdirectory(Dependancies/glfw)
+if(WIN32)
+    add_subdirectory(Dependancies/glew)
+    add_subdirectory(Dependancies/glfw)
+endif()
 include_directories(include)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

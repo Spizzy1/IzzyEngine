@@ -29,6 +29,8 @@
 *.out
 *.app
 
+.cache
+.vscode
 **/cmake-build-debug
 **/CMakeCache.txt
 **/cmake_install.cmake

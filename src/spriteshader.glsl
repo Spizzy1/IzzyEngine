@@ -24,7 +24,7 @@ void main()
     -sin(cd), 0, cos(cd)
     );
     vec3 transform =  rot2*(rot*(vec3(position.xy, 0))-vec3(cx,0,cz-1));
-    gl_Position = vec4(transform.xy,0, transform.z);
+    gl_Position = vec4(transform.xy,transform.z/1000, transform.z);
     texture_position = texture_position_v;
     
 }
