@@ -17,7 +17,7 @@ struct Texture* load_image(const char* path){
 
     printf("\n-- LOADING TEXTURE: %s --\n", path);
     //Rember evil
-    struct Texture* texture = malloc(sizeof(struct Texture));
+    struct Texture* texture;
     unsigned char* bytes = stbi_load(path, &texture->width, &texture->height, &texture->bpp, 4);
     glGenTextures(1, &texture->ID);
 

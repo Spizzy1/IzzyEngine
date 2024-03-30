@@ -4,15 +4,14 @@
 
 struct Character{
     void (*update_func)();
-    struct Mesh mesh;
-    struct Shader shader;
-    struct Texture texture;
+    struct Mesh* mesh;
+    struct Shader* shader;
+    struct Texture* texture;
     float position[3];
     float rotation[3];
-
 };
-struct Character* load_character(char* shader_name, struct Mesh mesh, struct Texture texture);
-void render_character(struct Character*, char* shader_name);
+void render_character(struct Character* character, int ux, int uy, int uz);
+struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
 void remove_character(struct Character*);
 
 #endif

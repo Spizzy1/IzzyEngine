@@ -2,11 +2,12 @@
 #include "textures/textures.h"
 #include "shaders/shaders.h"
 #include "meshes/meshes.h"
+#include "characters/characters.h"
 
-int left = 0;
 int right = 0;
 int up = 0;
 int down = 0;
+int left = 0;
 
 void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mods){
     if(action == GLFW_PRESS){
@@ -91,7 +92,6 @@ int main(int arg, char** args){
     mesh->size=16*4;
     mesh->vertex_count=4;
     mesh->type = GL_TRIANGLE_STRIP;
-
     printf("Assigning & Generating Vertex Buffer\n");
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -113,15 +113,16 @@ int main(int arg, char** args){
     const int ucd = glGetUniformLocation(shader->ID, "cd");
     const int urotate = glGetUniformLocation(shader->ID, "rotate");
     
+    
 
     struct Texture* friren = load_image("Frierenfriday.png");
     printf("Finished loading textures\n");
-
+    
     float camera_x = 0;
     float camera_z = 0;
     float direction = 0;
     float rotate = 0;
-
+    struct Character* character = load_character(mesh, friren, shader);
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -157,13 +158,11 @@ int main(int arg, char** args){
         
         rotate+= 0.12;
         glClear(GL_COLOR_BUFFER_BIT);
-        select_shader(shader);
-        select_texture(friren, utex);
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
         glUniform1f(urotate, rotate);
-        render_mesh(mesh);
+        render_character(character);
         glfwSwapBuffers(window);
     }
     glfwTerminate();
