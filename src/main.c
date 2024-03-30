@@ -126,7 +126,7 @@ int main(int arg, char** args){
     float lTime = 0;
     int lSecond = 0;
     int frameCount = 0;
-
+    int test;
     glfwSetTime(0);
     glfwSetKeyCallback(window, eventHandling);
     glEnableClientState(GL_VERTEX_ARRAY);
