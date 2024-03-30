@@ -111,6 +111,9 @@ int main(int arg, char** args){
     const int ucx = glGetUniformLocation(shader->ID, "cx");
     const int ucz = glGetUniformLocation(shader->ID, "cz");
     const int ucd = glGetUniformLocation(shader->ID, "cd");
+    const int ux = glGetUniformLocation(shader->ID, "x");
+    const int uy = glGetUniformLocation(shader->ID, "y");
+    const int uz = glGetUniformLocation(shader->ID, "z");
     const int urotate = glGetUniformLocation(shader->ID, "rotate");
     
     
@@ -123,6 +126,7 @@ int main(int arg, char** args){
     float direction = 0;
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
+    character->position[0] = 1;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -162,7 +166,7 @@ int main(int arg, char** args){
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
         glUniform1f(urotate, rotate);
-        render_character(character);
+        render_character(character, ux, uy, uz, urotate);
         glfwSwapBuffers(window);
     }
     glfwTerminate();

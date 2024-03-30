@@ -12,8 +12,9 @@ if(WIN32)
     add_subdirectory(Dependancies/glew)
     add_subdirectory(Dependancies/glfw)
 endif()
-include_directories(include)
+
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+include_directories(include)
 
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} glfw libglew_static opengl32 User32 Gdi32 Shell32 m)

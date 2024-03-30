@@ -10,7 +10,7 @@ struct Character{
     float position[3];
     float rotation[3];
 };
-void render_character(struct Character* character, int ux, int uy, int uz);
+void render_character(struct Character* character, int ux, int uy, int uz, int urotation);
 struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
 void remove_character(struct Character*);
 
