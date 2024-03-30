@@ -5,6 +5,7 @@ set(SOURCE_FILES
     src/textures/textures.c
     src/meshes/meshes.c
     src/shaders/shaders.c
+    src/characters/characters.c
     src/main.c
 )
 

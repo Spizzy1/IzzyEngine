@@ -3,6 +3,7 @@
 #include "shaders/shaders.h"
 #include "meshes/meshes.h"
 #include "characters/characters.h"
+#include <GLFW/glfw3.h>
 
 int right = 0;
 int up = 0;
@@ -126,7 +127,7 @@ int main(int arg, char** args){
     float direction = 0;
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
-    character->position[0] = 1;
+    character->position[0] = 0;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -145,6 +146,7 @@ int main(int arg, char** args){
         lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
         frameCount++;
         glfwPollEvents();
+
         if(left){
             direction-= 0.01;
         }
@@ -158,15 +160,14 @@ int main(int arg, char** args){
         if(down){
             camera_z-= cos(direction)*0.03;
             camera_x-= sin(direction)*0.03;
-        }
-        
+        }        
         rotate+= 0.12;
         glClear(GL_COLOR_BUFFER_BIT);
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
         glUniform1f(urotate, rotate);
-        render_character(character, ux, uy, uz, urotate);
+        render_character(character,ux, uy,  uz,  urotate);
         glfwSwapBuffers(window);
     }
     glfwTerminate();
