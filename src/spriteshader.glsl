@@ -4,17 +4,13 @@
 #version 330 core
 
 layout(location = 0) in vec2 position;
-layout (location = 1) in vec2 texture_position_v;
+layout (location = 1) in vec2 scale_v;
 uniform float cx;
 uniform float cz;
 uniform float cd;
-uniform float x;
-uniform float y;
-uniform float z;
 
 uniform float rotate;
-out vec2 texture_position;
-
+out vec2 scale;
 void main()
 {
     mat3 rot = mat3(
@@ -27,14 +23,39 @@ void main()
     0,       1,     0,
     -sin(cd), 0, cos(cd)
     );
-    vec3 transform =  rot2*(rot*(vec3(position.x, position.y, 0))+vec3(x-cx,y,z-cz));
-    transform.x += x;
-    transform.y += y;
-    transform.z += z;
+    vec3 transform =  rot2*(rot*(vec3(position.x, position.y, 0))+vec3(cx,0,cz));
     gl_Position = vec4(transform.xy,transform.z/1000, transform.z);
-    texture_position = texture_position_v;
+    scale = scale_v;
     
 }
+
+--GMTR--
+
+#version 330 core 
+
+layout(points) in;
+layout(triangle_strip, max_vertices = 4) out;
+in vec2 scale[];
+
+out vec2 texture_position;
+void main(){
+
+    texture_position = vec2(0, 1);
+    gl_Position = vec4(gl_in[0].gl_Position.xy + vec2(-scale[0].x, -scale[0].y), 0, 1);
+    EmitVertex();
+    texture_position = vec2(1, 1);
+    gl_Position = vec4(gl_in[0].gl_Position.xy + vec2(scale[0].x, -scale[0].y), 0, 1);
+    EmitVertex();
+    texture_position = vec2(0, 0);
+    gl_Position = vec4(gl_in[0].gl_Position.xy + vec2(-scale[0].x, scale[0].y), 0, 1);
+    EmitVertex();
+    texture_position = vec2(1, 0);
+    gl_Position = vec4(gl_in[0].gl_Position.xy + vec2(scale[0].x, scale[0].y), 0, 1);
+    EmitVertex();
+    EndPrimitive();
+ 
+}
+
 
 --FRAG--
 
@@ -49,3 +70,4 @@ void main()
     color = texture(tex, texture_position);
 
 }
+

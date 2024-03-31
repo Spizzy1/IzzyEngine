@@ -83,16 +83,13 @@ int main(int arg, char** args){
     unsigned vao = 0;
     struct Mesh* mesh = malloc(sizeof(struct Mesh));
 
-    mesh->data = (float[16]){
-    -1.0, 1.0, 0.0,0.0,
-    1,1, 1.0, 0.0,
-    -1.0, -1.0, 0.0, 1.0,
-    1.0, -1.0, 1,1
+    mesh->data = (float[4]){
+    0, 1, 0.5,0.5
     };
     
-    mesh->size=16*4;
-    mesh->vertex_count=4;
-    mesh->type = GL_TRIANGLE_STRIP;
+    mesh->size=4*4;
+    mesh->vertex_count=1;
+    mesh->type = GL_POINTS;
     printf("Assigning & Generating Vertex Buffer\n");
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -112,9 +109,6 @@ int main(int arg, char** args){
     const int ucx = glGetUniformLocation(shader->ID, "cx");
     const int ucz = glGetUniformLocation(shader->ID, "cz");
     const int ucd = glGetUniformLocation(shader->ID, "cd");
-    const int ux = glGetUniformLocation(shader->ID, "x");
-    const int uy = glGetUniformLocation(shader->ID, "y");
-    const int uz = glGetUniformLocation(shader->ID, "z");
     const int urotate = glGetUniformLocation(shader->ID, "rotate");
     
     
@@ -127,10 +121,8 @@ int main(int arg, char** args){
     float direction = 0;
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
-    character->position[0] = 2;
-    character->position[1] = 1;
-    character->position[2] = -1; 
-    character->rotation[1] = 45;
+    character->position[0] = 1;
+    character->position[1] = 0;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -165,11 +157,11 @@ int main(int arg, char** args){
         }        
         
         rotate+= 0.12;
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT); 
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
-        render_character(character,ux, uy,  uz,  urotate);
+        render_character(character);
         glfwSwapBuffers(window);
     }
     glfwTerminate();

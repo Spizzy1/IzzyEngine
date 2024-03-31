@@ -13,13 +13,14 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
     return character;
 }
 
-void render_character(struct Character* character, int ux, int uy, int uz, int urotation){
+void character_mesh_update(struct Character* character){
+    ((float*)character->mesh->data)[0] = character->position[0];
+    ((float*)character->mesh->data)[1] = character->position[1];
+}
+void render_character(struct Character* character){
     select_shader(character->shader);
-    glUniform1f(ux, character->position[0]);
-    glUniform1f(uy, character->position[1]);
+    character_mesh_update(character); 
     //Doesn't do anything in practice
-    glUniform1f(uz, character->position[2]);
-    glUniform1f(urotation, character->rotation[1]);
     select_texture(character->texture, glGetUniformLocation(character->shader->ID, "tex")); 
     render_mesh(character->mesh);
 
