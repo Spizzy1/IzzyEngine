@@ -120,8 +120,8 @@ int main(int arg, char** args){
     
 
     struct Texture* friren = load_image("Frierenfriday.png");
-    printf("Finished loading textures\n");
-    
+    printf("Finished loading textures\n");  
+
     float camera_x = 0;
     float camera_z = 0;
     float direction = 0;
@@ -149,9 +149,8 @@ int main(int arg, char** args){
         lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
         frameCount++;
         glfwPollEvents();
-
         if(left){
-            direction-= 0.01;
+           direction-= 0.01;
         }
         if(right){
             direction+= 0.01;
@@ -164,6 +163,7 @@ int main(int arg, char** args){
             camera_z-= cos(direction)*0.03;
             camera_x-= sin(direction)*0.03;
         }        
+        
         rotate+= 0.12;
         glClear(GL_COLOR_BUFFER_BIT);
         glUniform1f(ucx, camera_x);
