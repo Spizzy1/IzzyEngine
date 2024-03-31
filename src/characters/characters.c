@@ -19,7 +19,7 @@ void render_character(struct Character* character, int ux, int uy, int uz, int u
     glUniform1f(uy, character->position[1]);
     //Doesn't do anything in practice
     glUniform1f(uz, character->position[2]);
-
+    glUniform1f(urotation, character->rotation[1]);
     select_texture(character->texture, glGetUniformLocation(character->shader->ID, "tex")); 
     render_mesh(character->mesh);
 

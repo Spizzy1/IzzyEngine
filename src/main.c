@@ -127,7 +127,10 @@ int main(int arg, char** args){
     float direction = 0;
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
-    character->position[0] = 0;
+    character->position[0] = 2;
+    character->position[1] = 1;
+    character->position[2] = -1; 
+    character->rotation[1] = 45;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -166,7 +169,6 @@ int main(int arg, char** args){
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
-        glUniform1f(urotate, rotate);
         render_character(character,ux, uy,  uz,  urotate);
         glfwSwapBuffers(window);
     }
