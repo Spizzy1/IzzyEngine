@@ -16,6 +16,10 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
 void character_mesh_update(struct Character* character){
     ((float*)character->mesh->data)[0] = character->position[0];
     ((float*)character->mesh->data)[1] = character->position[1];
+    ((float*)character->mesh->data)[2] = character->position[2];
+    ((float*)character->mesh->data)[5] = character->rotation[1];
+
+
 }
 void render_character(struct Character* character){
     select_shader(character->shader);

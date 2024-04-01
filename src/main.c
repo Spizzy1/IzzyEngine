@@ -83,13 +83,24 @@ int main(int arg, char** args){
     unsigned vao = 0;
     struct Mesh* mesh = malloc(sizeof(struct Mesh));
 
-    mesh->data = (float[4]){
-    0, 1, 0.5,0.5
+    mesh->data = (float[6]){
+    0, 0, 0, 0.5,0.5, 3
     };
     
-    mesh->size=4*4;
+    mesh->size=4*6;
     mesh->vertex_count=1;
     mesh->type = GL_POINTS;
+
+    struct Mesh* mesh2 = malloc(sizeof(struct Mesh));
+    
+    mesh2->data = (float[6]){
+    1, 0, 0, 1,1, 3
+    };
+    
+    mesh2->size=4*6;
+    mesh2->vertex_count=1;
+    mesh2->type = GL_POINTS;
+
     printf("Assigning & Generating Vertex Buffer\n");
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -97,11 +108,14 @@ int main(int arg, char** args){
     printf("Loading shaders...\n");
     struct Shader* shader = loadshader("spriteshader.glsl");
     printf("Assigning attribute pointer 1\n");
-    glVertexAttribPointer(0,2,GL_FLOAT, false, 4*floatsize, 0);
+    glVertexAttribPointer(0,3,GL_FLOAT, false, 6*floatsize, 0);
     glEnableVertexAttribArray(0);
     printf("Assigning attribute pointer 2\n");
-    glVertexAttribPointer(1,2,GL_FLOAT, false, 4*floatsize, (void*)(2*floatsize));
+    glVertexAttribPointer(1,2,GL_FLOAT, false, 6*floatsize, (void*)(3*floatsize));
     glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2,1,GL_FLOAT, false, 6*floatsize, (void*)(5*floatsize));
+    glEnableVertexAttribArray(2);
 
     printf("Shaders loaded\n");
     
@@ -121,8 +135,17 @@ int main(int arg, char** args){
     float direction = 0;
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
+    struct Character* character2 = load_character(mesh2, friren, shader);
+    character2->position[0] = 3;
+    character2->position[1] = 0;
+    character2->position[2] = 1;
+
     character->position[0] = 1;
     character->position[1] = 0;
+    character->position[2] = 1;
+
+    character2->rotation[1] = 0.12;
+    character->rotation[1] = 0.12;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -142,10 +165,10 @@ int main(int arg, char** args){
         frameCount++;
         glfwPollEvents();
         if(left){
-           direction-= 0.01;
+           direction-= 0.03;
         }
         if(right){
-            direction+= 0.01;
+            direction+= 0.03;
         }
         if(up){
             camera_z+= cos(direction)*0.03;
@@ -155,13 +178,15 @@ int main(int arg, char** args){
             camera_z-= cos(direction)*0.03;
             camera_x-= sin(direction)*0.03;
         }        
-        
+        character2->rotation[1] -= 0.32;
+        character->rotation[1] += 0.12;
         rotate+= 0.12;
         glClear(GL_COLOR_BUFFER_BIT); 
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
         render_character(character);
+        render_character(character2);
         glfwSwapBuffers(window);
     }
     glfwTerminate();
