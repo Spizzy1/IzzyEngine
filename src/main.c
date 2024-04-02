@@ -6,7 +6,6 @@
 #include <GLFW/glfw3.h>
 
 #define floatsize sizeof(float)
-#define declArr(type) typedef type* type ## _arr
 
 int right = 0;
 int up = 0;
