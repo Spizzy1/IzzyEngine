@@ -5,6 +5,9 @@
 #include "characters/characters.h"
 #include <GLFW/glfw3.h>
 
+#define floatsize sizeof(float)
+#define declArr(type) typedef type* type ## _arr
+
 int right = 0;
 int up = 0;
 int down = 0;
@@ -48,17 +51,10 @@ void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mo
     }
 }
 
-
-int main(int arg, char** args){
-
-    const int width = 640; 
-    const int height = 480;
-    const int floatsize = sizeof(float);
-
-    GLFWwindow* window;
+GLFWwindow* init(const int win_width, const int win_height, const char* name){
     if(!glfwInit()){
         printf("glfw failed to init\n");
-        return -1;
+        return 0;
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -68,19 +64,64 @@ int main(int arg, char** args){
     glfwWindowHint(GLFW_FOCUSED, true);
     glfwWindowHint(GLFW_RESIZABLE, false);
 
-    window = glfwCreateWindow(width,height, "IzzyEngine", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(win_width,win_height, name, NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
     if(glewInit()){
         printf("glew failed to init\n");
-        return -1;
+        return 0;
     }
 
 
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, win_width, win_height);
+    return window;
+}
+void enable_attribf(int location, int countf, int totalf, int index){
+    printf("Assigning attribute pointer %d\n", location);
+    glVertexAttribPointer(location, countf, GL_FLOAT, false, totalf*floatsize, (void*)(index*floatsize));
+    glEnableVertexAttribArray(location);
+
+}
+int main(int arg, char** args){
+
+
+    const int width = 640; 
+    const int height = 480;
+
+    GLFWwindow* window = init(width, height, "IzzyEngine");
+    if(!window){
+        printf("Failed to initialize\n");
+        return -1;
+    }
     unsigned vbo = 0;
     unsigned vao = 0;
+
+    printf("Assigning & Generating Vertex Buffer\n");
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    
+
+    printf("Loading shaders...\n");
+    struct Shader* shader = loadshader("spriteshader.glsl");
+
+    enable_attribf(0, 3, 6, 0);
+    enable_attribf(1, 2, 6, 3);
+    enable_attribf(2, 1, 6, 5);
+
+    printf("Shaders loaded\n");
+    
+    const int utex = glGetUniformLocation(shader->ID, "tex");
+    const int ucx = glGetUniformLocation(shader->ID, "cx");
+    const int ucz = glGetUniformLocation(shader->ID, "cz");
+    const int ucd = glGetUniformLocation(shader->ID, "cd");
+    const int urotate = glGetUniformLocation(shader->ID, "rotate");
+    
+    
+
+    struct Texture* friren = load_image("Frierenfriday.png");
+    printf("Finished loading textures\n");  
+
     struct Mesh* mesh = malloc(sizeof(struct Mesh));
 
     mesh->data = (float[6]){
@@ -101,35 +142,6 @@ int main(int arg, char** args){
     mesh2->vertex_count=1;
     mesh2->type = GL_POINTS;
 
-    printf("Assigning & Generating Vertex Buffer\n");
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    
-    printf("Loading shaders...\n");
-    struct Shader* shader = loadshader("spriteshader.glsl");
-    printf("Assigning attribute pointer 1\n");
-    glVertexAttribPointer(0,3,GL_FLOAT, false, 6*floatsize, 0);
-    glEnableVertexAttribArray(0);
-    printf("Assigning attribute pointer 2\n");
-    glVertexAttribPointer(1,2,GL_FLOAT, false, 6*floatsize, (void*)(3*floatsize));
-    glEnableVertexAttribArray(1);
-
-    glVertexAttribPointer(2,1,GL_FLOAT, false, 6*floatsize, (void*)(5*floatsize));
-    glEnableVertexAttribArray(2);
-
-    printf("Shaders loaded\n");
-    
-    const int utex = glGetUniformLocation(shader->ID, "tex");
-    const int ucx = glGetUniformLocation(shader->ID, "cx");
-    const int ucz = glGetUniformLocation(shader->ID, "cz");
-    const int ucd = glGetUniformLocation(shader->ID, "cd");
-    const int urotate = glGetUniformLocation(shader->ID, "rotate");
-    
-    
-
-    struct Texture* friren = load_image("Frierenfriday.png");
-    printf("Finished loading textures\n");  
-
     float camera_x = 0;
     float camera_z = 0;
     float direction = 0;
@@ -146,6 +158,7 @@ int main(int arg, char** args){
 
     character2->rotation[1] = 0.12;
     character->rotation[1] = 0.12;
+
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
