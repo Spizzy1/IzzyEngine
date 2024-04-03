@@ -7,6 +7,7 @@ set(SOURCE_FILES
     src/shaders/shaders.c
     src/characters/characters.c
     src/Events/events.c
+    src/Physics/collisions.c
     src/main.c
 )
 

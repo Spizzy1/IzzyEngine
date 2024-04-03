@@ -6,7 +6,6 @@
 #include <GLFW/glfw3.h>
 #include "events/events.h"
 #include "context.h"
-#define floatsize sizeof(float)
 
 
 int right = 0;
@@ -100,7 +99,7 @@ int main(int arg, char** args){
     // NO EVENT CALLS OR APPENDS SHOULD HAPPEN BEFORE THIS FUNCTION CALL. I don't know how to get the allocations to happen at compile-time.
     // If you really wanna make stuff happen before that you're in "Editing the engine code" territory.
     struct Context* context = malloc(sizeof(struct Context));
-    context->character_vector = CHARACTER_vec(8);
+    context->character_vector = CHARACTER_vec(0);
     
     if(!window){
         printf("Failed to initialize\n");
@@ -173,7 +172,9 @@ int main(int arg, char** args){
 
     character2->update_ev = &testfunc;
 
-    context->character_vector->data[0] = character2;
+    CHARACTER_vec_append(context->character_vector, character);
+    CHARACTER_vec_append(context->character_vector, character2);
+
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -213,13 +214,12 @@ int main(int arg, char** args){
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
-        render_character(character);
-        render_character(character2);
 
         //This amount of ponter dereferencing could probably be optimized...
         
         for(int i = 0; i < context->character_vector->mem_size; i++){
             voidptr dataptr = context->character_vector->data[i];
+            render_character(((struct Character*)(dataptr)));
             if(dataptr){
                 if(((struct Character*)(dataptr))->update_ev){
                     (((struct Character*)(dataptr))->update_ev)(((struct Character*)(dataptr)), context);

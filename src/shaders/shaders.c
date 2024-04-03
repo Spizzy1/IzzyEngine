@@ -22,6 +22,7 @@ int shaderStatus(unsigned int shader)
 struct Shader* loadshader(const char* name){
 
     struct Shader* shader = malloc(sizeof(struct Shader));
+
     shader->ID = glCreateProgram();
     unsigned shaderIDs[3];
     int shader_count = 0;

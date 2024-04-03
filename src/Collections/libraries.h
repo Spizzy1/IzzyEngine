@@ -10,5 +10,7 @@
 #define true 1
 #define false 0
 typedef void* voidptr;
+#define floatsize sizeof(float)
+
 
 #endif

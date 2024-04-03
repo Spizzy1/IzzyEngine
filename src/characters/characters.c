@@ -8,9 +8,10 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
-    const float* base_position = (float[3]){0,0,0};
-    mempcpy(character->position,base_position, 3);
-    mempcpy(character->rotation, base_position, 3);
+    memset(character->position, 0, 3*floatsize);
+    memset(character->rotation, 0, 3*floatsize);
+    memset(character->velocity, 0, 3*floatsize);
+    memset(character->acceleration, 0, 3*floatsize);
     return character;
 }
 

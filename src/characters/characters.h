@@ -10,6 +10,8 @@ typedef struct Character{
     struct Texture* texture;
     float position[3];
     float rotation[3];
+    float velocity[3];
+    float acceleration[3];
 }; 
 void render_character(struct Character* character);
 struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader);

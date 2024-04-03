@@ -22,7 +22,7 @@ static struct type ## _vec*type ## _vec(size_t size_i) \
     vec->size = size_i; \
     vec->mem_size = size_i; \
     vec->data = malloc(size_i * sizeof(type)); \
-    memset(vec->data, 0, sizeof(vec->data) * sizeof(type)); \
+    memset(vec->data, 0, size_i * sizeof(type)); \
     return vec; \
 }\
 static void type ## _vec_mem_resize(struct type ## _vec* vec, size_t size_new) \
@@ -55,6 +55,7 @@ static void type ## _vec_insert(struct type ## _vec* vec, type val, size_t index
 static void type ## _vec_erase(struct type ## _vec* vec, size_t first, size_t count) \
 { \
     memcpy(&vec->data[first], &vec->data[first + count], (vec->size - first - count) * sizeof(type)); \
+    memset(&vec->data[vec->size-count], 0,count * sizeof(type)); \
     type ## _vec_resize(vec, vec->size - count); \
 }
 
