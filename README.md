@@ -11,7 +11,7 @@ A basic rendering engine with structs for shaders, meshes and textures with a ge
 
 ## What it plans to implement and why?
 
-### A custom, downscaled "Standard library" for internal uses
+### A custom, downscaled "Standard library 'CWE' (C with extras)" for internal uses
 
 To learn how internal functions such as vectors and string structures. Yes it would be more efficient to use the built in functions, but the project is primarily for intended for educational purposes.
 
@@ -34,4 +34,4 @@ You'll need to download and setup cmake for your desired OS, the dependancies ar
 ## Credits
 
 - Godot (for being an amazing open source engine and an inspiration for the design choices)
-- 
+- The book "Crafting Interpreters" by Robert Nystrom for the inspiration to go low-level
