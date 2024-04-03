@@ -24,10 +24,10 @@ static struct type ## _vec*type ## _vec(size_t size_i) \
     vec->data = malloc(size_i * sizeof(type)); \
     memset(vec->data, 0, sizeof(vec->data) * sizeof(type)); \
     return vec; \
-} \
+}\
 static void type ## _vec_mem_resize(struct type ## _vec* vec, size_t size_new) \
 { \
-    type* data_new = malloc(size_new * sizeof(type)); \
+    type* data_new = malloc(size_new * sizeof(type)); /* Malloc and memset, we dont want random RAM in our vectors*/  \
     memset(data_new, 0, size_new * sizeof(type)); \
     memcpy(data_new, vec->data, min(size_new, vec->size) * sizeof(type)); \
     free(vec->data); \
