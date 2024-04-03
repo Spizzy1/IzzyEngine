@@ -4,8 +4,10 @@
 #include "meshes/meshes.h"
 #include "characters/characters.h"
 #include <GLFW/glfw3.h>
-
+#include "events/events.h"
+#include "context.h"
 #define floatsize sizeof(float)
+
 
 int right = 0;
 int up = 0;
@@ -82,6 +84,10 @@ void enable_attribf(int location, int countf, int totalf, int index){
     glEnableVertexAttribArray(location);
 
 }
+
+void testfunc(struct Character* chr, struct Context* ctx){
+    chr->position[1] += 0.01;
+}
 int main(int arg, char** args){
 
 
@@ -89,6 +95,13 @@ int main(int arg, char** args){
     const int height = 480;
 
     GLFWwindow* window = init(width, height, "IzzyEngine");
+
+    // Allocates event vectors !!!!
+    // NO EVENT CALLS OR APPENDS SHOULD HAPPEN BEFORE THIS FUNCTION CALL. I don't know how to get the allocations to happen at compile-time.
+    // If you really wanna make stuff happen before that you're in "Editing the engine code" territory.
+    struct Context* context = malloc(sizeof(struct Context));
+    context->character_vector = CHARACTER_vec(8);
+    
     if(!window){
         printf("Failed to initialize\n");
         return -1;
@@ -158,6 +171,9 @@ int main(int arg, char** args){
     character2->rotation[1] = 0.12;
     character->rotation[1] = 0.12;
 
+    character2->update_ev = &testfunc;
+
+    context->character_vector->data[0] = character2;
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
@@ -199,6 +215,17 @@ int main(int arg, char** args){
         glUniform1f(ucd, direction);
         render_character(character);
         render_character(character2);
+
+        //This amount of ponter dereferencing could probably be optimized...
+        
+        for(int i = 0; i < context->character_vector->mem_size; i++){
+            voidptr dataptr = context->character_vector->data[i];
+            if(dataptr){
+                if(((struct Character*)(dataptr))->update_ev){
+                    (((struct Character*)(dataptr))->update_ev)(((struct Character*)(dataptr)), context);
+                }
+            }
+        }
         glfwSwapBuffers(window);
     }
     glfwTerminate();

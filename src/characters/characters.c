@@ -4,6 +4,7 @@
 
 struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
     struct Character* character = malloc(sizeof(struct Character));
+    character->update_ev = 0;
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
