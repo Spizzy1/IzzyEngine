@@ -7,7 +7,11 @@ Premature warning if you're an experienced C developer looking through this repo
 
 ## What it currently implements
 
-A basic rendering engine with structs for shaders, meshes and textures with a generalized "Character" struct to tie them all together for ease of use, written in OpenGL.
+- A basic rendering engine with structs for shaders, meshes and textures with a generalized "Character" struct to tie them all together for ease of use, written in OpenGL.
+
+- Rudamentary event loop using function pointers.
+
+- A custom vector implementation.
 
 ## What it plans to implement and why?
 
