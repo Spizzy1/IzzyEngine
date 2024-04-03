@@ -6,6 +6,7 @@ set(SOURCE_FILES
     src/meshes/meshes.c
     src/shaders/shaders.c
     src/characters/characters.c
+    src/Events/events.c
     src/main.c
 )
 
