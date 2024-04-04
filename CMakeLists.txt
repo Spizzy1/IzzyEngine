@@ -11,8 +11,10 @@ set(SOURCE_FILES
     src/main.c
 )
 
-add_subdirectory(Dependancies/glew)
-add_subdirectory(Dependancies/glfw)
+if(WIN32)
+    add_subdirectory(Dependancies/glew)
+    add_subdirectory(Dependancies/glfw)
+endif()
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 include_directories(include)
@@ -22,5 +24,5 @@ if(WIN32)
 
 endif()
 if(LINUX)
-    target_link_libraries(${PROJECT_NAME} glfw libglew_static GL m)
+    target_link_libraries(${PROJECT_NAME} glfw GLEW GL m)
 endif()

@@ -1,8 +1,8 @@
 #ifndef CONTEXT_H_INCLUDED
 #define CONTEXT_H_INCLUDED
 
-#include "Events/events.h"
-#include "Characters/characters.h"
+#include "CWE/vec.h"
+#include "characters/characters.h"
 #include "Collections/libraries.h"
 
 typedef struct Character* CHARACTER;

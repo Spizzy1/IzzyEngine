@@ -4,7 +4,6 @@
 #include "meshes/meshes.h"
 #include "characters/characters.h"
 #include <GLFW/glfw3.h>
-#include "events/events.h"
 #include "context.h"
 
 
