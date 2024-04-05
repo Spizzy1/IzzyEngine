@@ -214,17 +214,12 @@ int main(int arg, char** args){
         character2->rotation[1] -= 0.32;
         character->rotation[1] += 0.12;
         rotate+= 0.12;
-        printf("abcd\n");
-        printf("error: %d\n", glGetError());
         glClearColor(0, 0, 0, 1);        
-        printf("amognea+s0idqwpoi\n");
         glClear(GL_COLOR_BUFFER_BIT);
-        printf("test2\n");
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
 
-        printf("among us\n");
         //This amount of ponter dereferencing could probably be optimized...
         
         for(int i = 0; i < context->character_vector->mem_size; i++){
@@ -237,7 +232,6 @@ int main(int arg, char** args){
             }
         }
         
-        printf("amongus\n");
         glfwSwapBuffers(window);
     }
     glfwTerminate();
