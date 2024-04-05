@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.21.3)
 project(izzyengine VERSION 0.0.1)
 
 set(SOURCE_FILES
@@ -10,6 +10,7 @@ set(SOURCE_FILES
     src/Physics/collisions.c
     src/main.c
 )
+include_directories(include)
 
 if(WIN32)
     add_subdirectory(Dependancies/glew)
@@ -17,12 +18,15 @@ if(WIN32)
 endif()
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-include_directories(include)
+
+
 
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} glfw libglew_static opengl32 User32 Gdi32 Shell32 m)
 
 endif()
 if(LINUX)
+
     target_link_libraries(${PROJECT_NAME} glfw GLEW GL m)
+  # Add GLFW and GLEW static libraries to project
 endif()

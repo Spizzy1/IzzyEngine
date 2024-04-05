@@ -17,10 +17,12 @@ struct Texture* load_image(const char* path){
 
     printf("\n-- LOADING TEXTURE: %s --\n", path);
     //Rember evil
-    struct Texture* texture;
+    struct Texture* texture = malloc(sizeof(struct Texture));
     unsigned char* bytes = stbi_load(path, &texture->width, &texture->height, &texture->bpp, 4);
+    printf("Loaded image\n");
     glGenTextures(1, &texture->ID);
 
+    printf("Generated textures\n");
     //Binds texture (selects it)
     glBindTexture(GL_TEXTURE_2D, texture->ID);
     printf("setting parameters for image\n");

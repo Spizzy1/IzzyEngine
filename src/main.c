@@ -3,9 +3,8 @@
 #include "shaders/shaders.h"
 #include "meshes/meshes.h"
 #include "characters/characters.h"
-#include <GLFW/glfw3.h>
+#include <stdio.h>
 #include "context.h"
-
 
 int right = 0;
 int up = 0;
@@ -59,14 +58,13 @@ GLFWwindow* init(const int win_width, const int win_height, const char* name){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    glfwWindowHint(GLFW_FOCUSED, true);
-    glfwWindowHint(GLFW_RESIZABLE, false);
+    glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(win_width,win_height, name, NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
-
     if(glewInit()){
         printf("glew failed to init\n");
         return 0;
@@ -142,6 +140,7 @@ int main(int arg, char** args){
     mesh->vertex_count=1;
     mesh->type = GL_POINTS;
 
+    printf("error: %d\n", glGetError());
     struct Mesh* mesh2 = malloc(sizeof(struct Mesh));
     
     mesh2->data = (float[6]){
@@ -158,10 +157,12 @@ int main(int arg, char** args){
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
     struct Character* character2 = load_character(mesh2, friren, shader);
+    printf("error: %d\n", glGetError());
     character2->position[0] = 3;
     character2->position[1] = 0;
     character2->position[2] = 1;
 
+    printf("error: %d\n", glGetError());
     character->position[0] = 1;
     character->position[1] = 0;
     character->position[2] = 1;
@@ -170,18 +171,22 @@ int main(int arg, char** args){
     character->rotation[1] = 0.12;
 
     character2->update_ev = &testfunc;
-
     CHARACTER_vec_append(context->character_vector, character);
     CHARACTER_vec_append(context->character_vector, character2);
 
+    printf("error: %d\n", glGetError());
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
     int frameCount = 0;
     int test;
     glfwSetTime(0);
+    printf("error: %d\n", glGetError());
     glfwSetKeyCallback(window, eventHandling);
-    glEnableClientState(GL_VERTEX_ARRAY);
+    printf("error: %d\n", glGetError());
+    //glEnableClientState(GL_VERTEX_ARRAY);
+    printf("error: %d\n", glGetError());
+    printf("%s\n", glGetString(GL_VERSION));
     while(!glfwWindowShouldClose(window)){
         while (glfwGetTime() - lTime < 1 / targetFps);
         if (glfwGetTime() - 1 >= lSecond)
@@ -209,11 +214,17 @@ int main(int arg, char** args){
         character2->rotation[1] -= 0.32;
         character->rotation[1] += 0.12;
         rotate+= 0.12;
-        glClear(GL_COLOR_BUFFER_BIT); 
+        printf("abcd\n");
+        printf("error: %d\n", glGetError());
+        glClearColor(0, 0, 0, 1);        
+        printf("amognea+s0idqwpoi\n");
+        glClear(GL_COLOR_BUFFER_BIT);
+        printf("test2\n");
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
 
+        printf("among us\n");
         //This amount of ponter dereferencing could probably be optimized...
         
         for(int i = 0; i < context->character_vector->mem_size; i++){
@@ -225,6 +236,8 @@ int main(int arg, char** args){
                 }
             }
         }
+        
+        printf("amongus\n");
         glfwSwapBuffers(window);
     }
     glfwTerminate();
