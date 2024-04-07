@@ -3,6 +3,7 @@
 #include "../Collections/base_rendering.h"
 #include "../Events/events.h"
 #include "../CWE/vec.h"
+#include "../Physics/physics.h"
 
 typedef void (*evptr)(struct Character*, struct Context*);
 
@@ -13,8 +14,6 @@ struct Character{
     struct Texture* texture;
     float position[3];
     float rotation[3];
-    float velocity[3];
-    float acceleration[3];
 }; 
 
 void render_character(struct Character* character);

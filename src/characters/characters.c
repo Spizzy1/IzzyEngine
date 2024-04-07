@@ -10,8 +10,6 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
     character->texture = texture; 
     memset(character->position, 0, 3*floatsize);
     memset(character->rotation, 0, 3*floatsize);
-    memset(character->velocity, 0, 3*floatsize);
-    memset(character->acceleration, 0, 3*floatsize);
     return character;
 }
 
