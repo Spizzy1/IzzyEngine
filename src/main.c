@@ -86,7 +86,6 @@ void testfunc(struct Character* chr, struct Context* ctx){
 }
 int main(int arg, char** args){
 
-
     const int width = 640; 
     const int height = 480;
 

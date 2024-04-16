@@ -13,8 +13,8 @@ set(SOURCE_FILES
 include_directories(include)
 
 if(WIN32)
-    add_subdirectory(Dependancies/glew)
-    add_subdirectory(Dependancies/glfw)
+    add_subdirectory(Dependencies/glew)
+    add_subdirectory(Dependencies/glfw)
 endif()
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

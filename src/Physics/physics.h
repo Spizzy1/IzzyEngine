@@ -15,7 +15,7 @@ declVec(PHYS_PTR);
 typedef struct PHYS_PTR_vec PHYSVEC;
 declVec(PHYSVEC);
 
-void physics(PHYS_PTR** chunks, struct PHYS_PTR_vec* objects, struct Context* ctx, float dt);
+void physics_update(PHYS_PTR** chunks, struct PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt);
 struct PHYSVEC_vec* init_chunks(struct PHYS_PTR_vec* objects);
 
 #endif
