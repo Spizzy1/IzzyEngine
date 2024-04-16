@@ -39,3 +39,28 @@ You'll need to download and setup cmake for your desired OS, the dependancies ar
 
 - Godot (for being an amazing open source engine and an inspiration for the design choices)
 - The book "Crafting Interpreters" by Robert Nystrom for the inspiration to go low-level
+
+## Project tracking
+- [x] "Game object" like structures
+- [ ] Lua support
+  - [ ] Listening to end-user script at game run-time. (Programming games?)
+- [ ] Physics
+  - [ ] Physics chunks
+  - [ ] Dynamic substeps
+  - [ ] Collisions
+    - [ ] Event callback on collision
+- [x] Subscribable event loop
+  - [ ] Clickable objects
+  - [ ] Objects capturing Input
+
+- [ ] 3D-Support (Optional)
+  - [ ] Geometric Algebra Library
+  - [ ] 3D Geometry shaders
+  - [ ] 3D Collisions
+
+- Game utilities 
+  - [ ] Character fetch paths (ID's, maybe a tree structure)
+- CWE 
+  - [x] Implement Vectors
+  - [ ]  Memory allocator
+  - [ ]  Create a custom string struct (with necessary functions)
