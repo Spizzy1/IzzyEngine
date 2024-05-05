@@ -54,3 +54,6 @@ build/**/*
 lib/*
 bin/*
 test/test_runner
+
+#SConstruct
+.sconsign.dblite

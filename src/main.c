@@ -5,11 +5,14 @@
 #include "characters/characters.h"
 #include <stdio.h>
 #include "context.h"
+#include "CWE/logger.h"
 
 int right = 0;
 int up = 0;
 int down = 0;
 int left = 0;
+const char* GRAPHICS_SOURCE = "Graphics Pipeline";
+const char* WINDOW_SOURCE = "Window";
 
 void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mods){
     if(action == GLFW_PRESS){
@@ -51,7 +54,7 @@ void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mo
 
 GLFWwindow* init(const int win_width, const int win_height, const char* name){
     if(!glfwInit()){
-        printf("glfw failed to init\n");
+        cwlog(WINDOW_SOURCE, LOGGER_ERROR, "glfw failed to init");
         return 0;
     }
 
@@ -66,7 +69,7 @@ GLFWwindow* init(const int win_width, const int win_height, const char* name){
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     if(glewInit()){
-        printf("glew failed to init\n");
+        cwlog(GRAPHICS_SOURCE, LOGGER_ERROR, "glew failed to init\n");
         return 0;
     }
 
@@ -75,7 +78,7 @@ GLFWwindow* init(const int win_width, const int win_height, const char* name){
     return window;
 }
 void enable_attribf(int location, int countf, int totalf, int index){
-    printf("Assigning attribute pointer %d\n", location);
+    cwlog("GRAPHICS PIPELINE", LOGGER_SETUP, "Assigning attribute pointer %d", location);
     glVertexAttribPointer(location, countf, GL_FLOAT, false, totalf*floatsize, (void*)(index*floatsize));
     glEnableVertexAttribArray(location);
 
@@ -98,25 +101,25 @@ int main(int arg, char** args){
     context->character_vector = CHARACTER_vec(0);
     
     if(!window){
-        printf("Failed to initialize\n");
+        cwlog(WINDOW_SOURCE,LOGGER_ERROR, "Failed to initialize");
         return -1;
     }
     unsigned vbo = 0;
     unsigned vao = 0;
 
-    printf("Assigning & Generating Vertex Buffer\n");
+    cwlog(GRAPHICS_SOURCE,LOGGER_SETUP,"Assigning & Generating Vertex Buffer");
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     
 
-    printf("Loading shaders...\n");
+    cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Loading shaders...");
     struct Shader* shader = loadshader("spriteshader.glsl");
 
     enable_attribf(0, 3, 6, 0);
     enable_attribf(1, 2, 6, 3);
     enable_attribf(2, 1, 6, 5);
 
-    printf("Shaders loaded\n");
+    cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Shaders loaded");
     
     const int utex = glGetUniformLocation(shader->ID, "tex");
     const int ucx = glGetUniformLocation(shader->ID, "cx");
@@ -127,7 +130,7 @@ int main(int arg, char** args){
     
 
     struct Texture* friren = load_image("Frierenfriday.png");
-    printf("Finished loading textures\n");  
+    cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Finished loading textures");  
 
     struct Mesh* mesh = malloc(sizeof(struct Mesh));
 
@@ -139,7 +142,7 @@ int main(int arg, char** args){
     mesh->vertex_count=1;
     mesh->type = GL_POINTS;
 
-    printf("error: %d\n", glGetError());
+    cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     struct Mesh* mesh2 = malloc(sizeof(struct Mesh));
     
     mesh2->data = (float[6]){
@@ -156,12 +159,12 @@ int main(int arg, char** args){
     float rotate = 0;
     struct Character* character = load_character(mesh, friren, shader);
     struct Character* character2 = load_character(mesh2, friren, shader);
-    printf("error: %d\n", glGetError());
+    cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     character2->position[0] = 3;
     character2->position[1] = 0;
     character2->position[2] = 1;
 
-    printf("error: %d\n", glGetError());
+    cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     character->position[0] = 1;
     character->position[1] = 0;
     character->position[2] = 1;
@@ -173,19 +176,17 @@ int main(int arg, char** args){
     CHARACTER_vec_append(context->character_vector, character);
     CHARACTER_vec_append(context->character_vector, character2);
 
-    printf("error: %d\n", glGetError());
+    cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
     int frameCount = 0;
     int test;
     glfwSetTime(0);
-    printf("error: %d\n", glGetError());
     glfwSetKeyCallback(window, eventHandling);
-    printf("error: %d\n", glGetError());
     //glEnableClientState(GL_VERTEX_ARRAY);
-    printf("error: %d\n", glGetError());
-    printf("%s\n", glGetString(GL_VERSION));
+    cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
+    cwlog(GRAPHICS_SOURCE, LOGGER_INFO, "OpenGL Version: %s", glGetString(GL_VERSION));
     while(!glfwWindowShouldClose(window)){
         while (glfwGetTime() - lTime < 1 / targetFps);
         if (glfwGetTime() - 1 >= lSecond)

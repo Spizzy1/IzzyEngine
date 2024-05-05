@@ -12,7 +12,7 @@ int shaderStatus(unsigned int shader)
         char* errorLog = malloc(maxLength);
         glGetProgramInfoLog(shader, maxLength, &maxLength, &errorLog[0]);
 
-        printf("%s\n", errorLog);
+        cwlog("Shader loader",LOGGER_ERROR, "%s", errorLog);
         glDeleteProgram(shader);
         free(errorLog);
         return -1;
@@ -34,13 +34,13 @@ struct Shader* loadshader(const char* name){
     rewind(fptr);
     char* file = malloc(sizeof(char) * size);
     fread(file, 1, size, fptr);
-    printf("Last char: %d\n", file[size-1]);
+    cwlog(name, LOGGER_INFO, "Last char: %d", file[size-1]);
     int begin = 0;
     int shader_type=0;
     int new_shader_type=0;
     int load = false;
     int reading = false;
-    printf("Parsing shader file\n");
+    cwlog(name, LOGGER_INFO, "Parsing shader file");
     for(int i = 0; i < size; i++){
         if(file[i] == '\n' && size - i > 8){
             char str[8];
@@ -48,41 +48,41 @@ struct Shader* loadshader(const char* name){
             str[8] = '\0';
             if(!strcmp("--VERT--", str)){
                 new_shader_type = GL_VERTEX_SHADER;
-                printf("Compiling vertex shader\n");
+                cwlog(name, LOGGER_INFO, "Compiling vertex shader");
                 load = true;
             }
             else if(!strcmp("--FRAG--", str)){
                 new_shader_type = GL_FRAGMENT_SHADER;
-                printf("Compiling fragment shader\n");
+                cwlog(name, LOGGER_INFO, "Compiling fragment shader");
 
                 load = true;
             }
             else if(!strcmp("--GMTR--", str)){
                 new_shader_type = GL_GEOMETRY_SHADER;
-                printf("Compiling geometry shader\n");
+                cwlog(name, LOGGER_INFO, "Compiling geometry shader");
 
                 load = true;
             }
         }
         if((load || i == size-1)){
             if(reading){
-                printf("Shader type: %x\n", shader_type);
+                cwlog(name, LOGGER_INFO, "Shader type: %x", shader_type);
                 i+= i==size-1;
-                printf("Reading Subfile\n");
+                cwlog(name, LOGGER_INFO, "Reading Subfile");
                 char* subfile = malloc(i-begin+1);
                 subfile[i-begin] = '\0';
-                printf("Copying into subfile\n");
+                cwlog(name, LOGGER_INFO, "Copying into subfile");
                 strncpy(subfile, file+begin,i-begin);
-                printf("Creating shader object\n");
+                cwlog(name, LOGGER_INFO, "Creating shader object");
                 unsigned ID = glCreateShader(shader_type);
 
-                printf("Parsing shader source\n");
+                cwlog(name, LOGGER_INFO, "Parsing shader source");
                 glShaderSource(ID, 1, (const char**)&subfile, NULL);
 
-                printf("Compiling shader\n");
+                cwlog(name, LOGGER_INFO, "Compiling shader");
                 glCompileShader(ID);
 
-                printf("Attatching shader\n");
+                cwlog(name, LOGGER_INFO, "Attatching shader");
                 glAttachShader(shader->ID, ID);
 
                 free(subfile);
@@ -102,10 +102,10 @@ struct Shader* loadshader(const char* name){
     free((char*)file);
 
     glLinkProgram(shader->ID);
-    printf("%d\n",shaderStatus(shader->ID));
+    cwlog(name, LOGGER_INFO, "Shader Status %d",shaderStatus(shader->ID));
     for(int i = 0; i < shader_count; i++){
 
-        printf("Cleaning up shader compilation... \n");
+        cwlog(name, LOGGER_SETUP, "Cleaning up shader compilation...");
         glDetachShader(shader->ID, shaderIDs[i]);
         glDeleteShader(shaderIDs[i]);
     }

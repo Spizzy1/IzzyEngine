@@ -1,4 +1,2 @@
-cd "./build/"
-make
-cd "../"
+scons -Q
 $("./run.sh")
