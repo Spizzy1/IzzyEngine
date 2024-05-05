@@ -30,7 +30,7 @@ void cwlog(const char* Source, int mode, const char *format, ...){
     }
     
     if (cix < 0 || cix >= max_inf_len){
-        printf(RED "Invalid info string maybe your source string was too large? (%x characters)\n" RESET, max_inf_len); 
+        printf(RED "Invalid info string, maybe your source string was too large? (%x characters max you tried to output: %x (including formatting characters))\n" RESET, max_inf_len, cix); 
         return;
 
     }
@@ -38,7 +38,7 @@ void cwlog(const char* Source, int mode, const char *format, ...){
     cx = snprintf(buffer+cix, max_len, format, args);
 
     if (cx < 0 || cix >= max_inf_len){
-        printf(RED "Error message buffer overflow (outputting too much data?)\n" RESET); 
+        printf(RED "Error message buffer overflow (outputting too much data? Max data string size: %x, this string size: %x)\n" RESET, max_len, cx); 
         return;
     }
     puts(buffer);
