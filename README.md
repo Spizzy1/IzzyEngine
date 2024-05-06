@@ -64,3 +64,9 @@ You'll need to download and setup cmake for your desired OS, the dependancies ar
   - [x] Implement Vectors
   - [ ]  Memory allocator
   - [ ]  Create a custom string struct (with necessary functions)
+    - [ ] Concatination
+    - [ ] Memory management
+  - [x]  Custom logger
+    - [ ] Have it output to files
+    - [ ] Use structs instead of strings
+    - [ ] Use my custom strings for the logic instead of tons of memory calls
