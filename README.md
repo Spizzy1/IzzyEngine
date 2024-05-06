@@ -57,6 +57,10 @@ You'll need to download and setup cmake for your desired OS, the dependancies ar
   - [ ] Geometric Algebra Library
   - [ ] 3D Geometry shaders
   - [ ] 3D Collisions
+    
+- SConstruct (It's a great build system)
+  - [ ] Learn how to use it properly
+  - [ ] Add windows support
 
 - Game utilities 
   - [ ] Character fetch paths (ID's, maybe a tree structure)
