@@ -1,0 +1,18 @@
+import glob
+Import('env')
+
+CPPATH = "./include"
+env.Append(CPPPATH="#thirdparty/glfw/include")
+
+#this is very bad but will do until I can detect display servers properly
+defines = []
+if env['selected_platform'] == "windows":
+    defines = ["_GLFW_WIN32"]
+else:
+    defines = ["_GLFW_X11"]
+
+
+src_files=glob.glob("src/*.c")
+print(src_files)
+env.Library("glfw", src_files, CPPDEFINES=defines)
+

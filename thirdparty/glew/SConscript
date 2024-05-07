@@ -1,0 +1,9 @@
+import glob
+Import('env')
+
+CPPATH = "./include"
+env.Append(CPPPATH="#thirdparty/glew/include")
+print(env['CPPPATH'])
+src_files=glob.glob("src/*.c")
+print(src_files)
+env.Library("GLEW", src_files)
