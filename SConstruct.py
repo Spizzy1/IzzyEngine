@@ -1,6 +1,6 @@
 import os
 import sys
-env = Environment(LIBS=["glfw", "GLEW", "GL", "m"], CPPPATH=["#include"], LIBPATH=[".", '/usr/lib','/usr/local/lib', "#thirdparty/glew", "#thirdparty/glfw"])
+env = Environment(CPPPATH=["#include"])
 
 selected_platform = ""
 if selected_platform == "":
@@ -21,8 +21,18 @@ if selected_platform == "":
     if selected_platform != "":
         print(f"Automatically detected platform: {selected_platform}")
 
+libpath = ["." , "#thirdparty/glew", "#thirdparty/glfw"]
 session = ""
 env['selected_platform'] = selected_platform
+if selected_platform == "windows":
+    env["LIBS"] = ["glfw", "GLEW", "opengl32", "User32", "Gdi32", "Shell32"]
+    env.Append(LIBPATH=["C:\lib", "D:\lib"]+libpath)
+
+elif selected_platform == "linuxbsd":
+    env["LIBS"] = ["glfw", "GLEW", "GL", "m"]
+    env.Append(LIBPATH=['/usr/lib','/usr/local/lib']+libpath)
+else:
+    env["LIBS"]
 
 Export('env')
 SConscript('thirdparty/glfw/SConscript')

@@ -17,6 +17,9 @@
 #define LOGGER_SETUP 2
 #define LOGGER_ERROR 3 
 
+#define max_inf_len 63
+#define max_len 255
+#define tot_len 318
 
 void cwlog(const char* Source, int mode, const char *format, ...);
 #endif

@@ -4,9 +4,8 @@
 #include "logger.h"
 void cwlog(const char* Source, int mode, const char *format, ...){
     int cx = 0;
-    const int max_len = 255;
-    const int max_inf_len = 64;
-    char buffer [max_inf_len+max_len];
+
+    char buffer [tot_len];
     va_list args;
     va_start(args, format);
     char InfoStr [max_inf_len];  
