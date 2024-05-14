@@ -31,9 +31,11 @@ if selected_platform == "windows":
 elif selected_platform == "linuxbsd":
     env["LIBS"] = ["glfw", "GLEW", "GL", "m"]
     env.Append(LIBPATH=['/usr/lib','/usr/local/lib']+libpath)
+
 Export('env')
-SConscript('thirdparty/glfw/SConscript')
+
 SConscript('thirdparty/glew/SConscript')
+SConscript('thirdparty/glfw/SConscript')
 
 SConscript('src/SConscript.py', variant_dir='build')
 

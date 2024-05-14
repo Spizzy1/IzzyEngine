@@ -33,7 +33,23 @@ Implementing a vector of functions that are called upon certain events by the in
 
 ## Installation
 
-You'll need to download and setup cmake for your desired OS, the dependancies are in git submodules or in pure headers included in the repo so they will be compiled by cmake upon first setup. If any issues arise, feel free to open an issue (Although this is not intended for commercial use and thus it is up to potential maintainers to fix).
+Install "scons", instructions can be found [here](https://scons.org/doc/4.0.1/HTML/scons-user/ch01s02.html). If any issues arise, feel free to open an issue (Although this is not intended for commercial use and thus it is up to potential maintainers to fix).
+
+Compiling the engine is as simple as running:
+```
+scons
+```
+In your terminal.
+
+And running the engine with 
+```
+./run.sh
+```
+
+Alternatively both of these steps can be done using
+```
+./buildrun.sh
+```
 
 ## Credits
 

@@ -43,7 +43,7 @@ struct Shader* loadshader(const char* name){
     cwlog(name, LOGGER_INFO, "Parsing shader file");
     for(int i = 0; i < size; i++){
         if(file[i] == '\n' && size - i > 8){
-            char str[8];
+            char str[9];
             memcpy(str, file+i+1, 8);
             str[8] = '\0';
             if(!strcmp("--VERT--", str)){

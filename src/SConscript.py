@@ -1,3 +1,4 @@
+import glob
 Import('env')
 src_files = [
     "Events/events.c",
@@ -11,4 +12,9 @@ src_files = [
 
 print("Starting build process!")
 print(env['CPPPATH'])
-env.Program("IzzyEngine", src_files)
+engine = env.Program("IzzyEngine", src_files)
+
+print("Copying extra dependent files")
+ext = glob.glob("../resources/*")
+print(f"files: {ext}")
+env.Install("./",ext)

@@ -1,2 +1,2 @@
-cd src 
-./../build/IzzyEngine
+cd build
+./IzzyEngine

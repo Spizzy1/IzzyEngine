@@ -27,9 +27,9 @@ if env['selected_platform'] != "linuxbsd":
     src_files = substrfilter(src_files, ["wl_"])
 
 LIBS =[]+env["LIBS"]
-print(f"glfw dependencies: {LIBS}")
 LIBS.remove("glfw")
+print(f"glfw dependencies: {LIBS}")
 
 print(f"glfw source files: {src_files}")
-env.SharedLibrary("glfw", src_files, LIBS=LIBS, CPPDEFINES=defines)
+env.Library("glfw", src_files, LIBS=LIBS, CPPDEFINES=defines)
 
