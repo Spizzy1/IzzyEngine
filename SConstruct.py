@@ -17,9 +17,10 @@ if selected_platform == "":
         selected_platform = "macos"
     elif sys.platform == "win32":
         selected_platform = "windows"
+    print(f"System platform: {sys.platform}")
 
-    if selected_platform != "":
-        print(f"Automatically detected platform: {selected_platform}")
+if selected_platform != "":
+    print(f"Automatically detected platform: {selected_platform}")
 
 libpath = ["." , "#thirdparty/glew", "#thirdparty/glfw"]
 session = ""
@@ -27,13 +28,9 @@ env['selected_platform'] = selected_platform
 if selected_platform == "windows":
     env["LIBS"] = ["glfw", "GLEW", "opengl32", "User32", "Gdi32", "Shell32"]
     env.Append(LIBPATH=["C:\lib", "D:\lib"]+libpath)
-
 elif selected_platform == "linuxbsd":
     env["LIBS"] = ["glfw", "GLEW", "GL", "m"]
     env.Append(LIBPATH=['/usr/lib','/usr/local/lib']+libpath)
-else:
-    env["LIBS"]
-
 Export('env')
 SConscript('thirdparty/glfw/SConscript')
 SConscript('thirdparty/glew/SConscript')

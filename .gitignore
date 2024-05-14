@@ -5,6 +5,9 @@
 *.o
 *.obj
 
+#exp files (?)
+*.exp
+
 # Precompiled Headers
 *.gch
 *.pch
