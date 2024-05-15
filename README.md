@@ -55,6 +55,9 @@ Alternatively both of these steps can be done using
 
 - Godot (for being an amazing open source engine and an inspiration for the design choices)
 - The book "Crafting Interpreters" by Robert Nystrom for the inspiration to go low-level
+- OpenGL for their amazing library
+- GLFW, for opening windows
+- GLEW, for handling the hardest parts of OpenGL
 
 ## Project tracking
 - [x] "Game object" like structures
