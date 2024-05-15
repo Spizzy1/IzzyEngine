@@ -12,16 +12,16 @@ void cwlog(const char* Source, int mode, const char *format, ...){
     int cix = 0;
     switch (mode){
         case LOGGER_INFO:
-            cix = snprintf(InfoStr, max_inf_len, GRN "[INFO/%s]:" RESET, Source);
+            cix = snprintf(InfoStr, max_inf_len, GRN "[INFO/%s]: " RESET, Source);
             break;
         case LOGGER_WARN:
-            cix = snprintf(InfoStr, max_inf_len, YEL "[WARNING/%s]:" RESET, Source);
+            cix = snprintf(InfoStr, max_inf_len, YEL "[WARNING/%s]: " RESET, Source);
             break;
         case LOGGER_SETUP:
-            cix = snprintf(InfoStr, max_inf_len, BLU "[SETUP/%s]:" RESET, Source);
+            cix = snprintf(InfoStr, max_inf_len, BLU "[SETUP/%s]: " RESET, Source);
             break;
         case LOGGER_ERROR:
-            cix = snprintf(InfoStr, max_inf_len, RED "[ERROR/%s]:" RESET, Source);
+            cix = snprintf(InfoStr, max_inf_len, RED "[ERROR/%s]: " RESET, Source);
             break;
         default:
             printf(RED "Invalid logger mode" RESET ": max value is %x got %x\n", LOGGER_ERROR, mode);

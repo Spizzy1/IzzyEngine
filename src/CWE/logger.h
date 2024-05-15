@@ -22,4 +22,10 @@
 #define tot_len 318
 
 void cwlog(const char* Source, int mode, const char *format, ...);
+
+struct logger {
+    const char* name;
+    int prints;
+    
+};
 #endif

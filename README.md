@@ -58,13 +58,16 @@ Alternatively both of these steps can be done using
 
 ## Project tracking
 - [x] "Game object" like structures
+
 - [ ] Lua support
   - [ ] Listening to end-user script at game run-time. (Programming games?)
+
 - [ ] Physics
   - [ ] Physics chunks
   - [ ] Dynamic substeps
   - [ ] Collisions
     - [ ] Event callback on collision
+
 - [x] Subscribable event loop
   - [ ] Clickable objects
   - [ ] Objects capturing Input
@@ -73,10 +76,12 @@ Alternatively both of these steps can be done using
   - [ ] Geometric Algebra Library
   - [ ] 3D Geometry shaders
   - [ ] 3D Collisions
-    
+
+- [ ] Text rendering
+
 - SConstruct (It's a great build system)
   - [ ] Learn how to use it properly
-  - [ ] Add windows support
+  - [x] Add windows support
 
 - Game utilities 
   - [ ] Character fetch paths (ID's, maybe a tree structure)
