@@ -1,8 +1,0 @@
-[submodule "Dependancies/glew"]
-    path = Dependancies/glew
-    url = https://github.com/Perlmint/glew-cmake
-    branch = master
-[submodule "Dependancies/glfw"]
-    path = Dependancies/glfw
-    url = https://github.com/glfw/glfw
-    branch = master
