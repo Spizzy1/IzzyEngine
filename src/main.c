@@ -1,4 +1,5 @@
 #include "Collections/libraries.h"
+#include "Physics/physics.h"
 #include "textures/textures.h"
 #include "shaders/shaders.h"
 #include "meshes/meshes.h"
@@ -153,15 +154,18 @@ int main(int arg, char** args){
     mesh2->vertex_count=1;
     mesh2->type = GL_POINTS;
 
+    struct Physics_Object* charphys = malloc(sizeof(struct Physics_Object));
+    struct Physics_Object* charphys2 = malloc(sizeof(struct Physics_Object));
+
     float camera_x = 0;
     float camera_z = 0;
     float direction = 0;
     float rotate = 0;
     struct Character* character = malloc(sizeof(struct Character));
-    load_character(character, mesh, friren, shader);
+    load_character(character, charphys,mesh, friren, shader);
 
     struct Character* character2 = malloc(sizeof(struct Character));
-    load_character(character2, mesh2, friren, shader);
+    load_character(character2, charphys2,mesh2, friren, shader);
 
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     character2->physics_object->position.x = 3;

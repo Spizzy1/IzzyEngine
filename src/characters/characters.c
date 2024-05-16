@@ -2,17 +2,19 @@
 #include "../Collections/libraries.h"
 #include "../Collections/base_rendering.h"
 
-void load_character(struct Character* character, struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
+void load_character(struct Character* character, struct Physics_Object* physics_object, struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
 
     character->update_ev = 0;
+    printf("wowaw\n");
+    character->physics_object = physics_object;
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
-    
+    printf("thatsus\n");
     character->physics_object->position.x = 0;
     character->physics_object->position.x = 0;
     character->physics_object->position.x = 0;
-
+    printf("What\n");
     character->rotation.x = 0;
     character->rotation.y = 0;
     character->rotation.z = 0;

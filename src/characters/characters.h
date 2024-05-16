@@ -6,7 +6,10 @@
 #include "../CWE/vec.h"
 #include "../CWE/logger.h"
 #include "../CWE/cwmath.h"
+#include "../context.h"
 #include "../Physics/physics.h"
+
+struct Character;
 
 typedef void (*evptr)(struct Character*, struct Context*);
 
@@ -19,8 +22,9 @@ struct Character{
     struct Vec3 rotation;
 }; 
 
+
 void render_character(struct Character* character);
-void load_character(struct Character* character, struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
+void load_character(struct Character* character, struct Physics_Object* physics_object, struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
 void remove_character(struct Character*);
 
 #endif
