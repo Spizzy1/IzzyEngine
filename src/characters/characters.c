@@ -2,8 +2,8 @@
 #include "../Collections/libraries.h"
 #include "../Collections/base_rendering.h"
 
-struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
-    struct Character* character = malloc(sizeof(struct Character));
+void load_character(struct Character* character, struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
+
     character->update_ev = 0;
     character->shader = shader;
     character->mesh = mesh;
@@ -17,7 +17,6 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
     character->rotation.y = 0;
     character->rotation.z = 0;
 
-    return character;
 }
 
 void character_mesh_update(struct Character* character){
@@ -37,5 +36,4 @@ void render_character(struct Character* character){
 
 }
 void remove_character(struct Character* character){
-
 }

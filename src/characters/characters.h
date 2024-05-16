@@ -20,7 +20,7 @@ struct Character{
 }; 
 
 void render_character(struct Character* character);
-struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
+void load_character(struct Character* character, struct Mesh* mesh, struct Texture* texture, struct Shader* shader);
 void remove_character(struct Character*);
 
 #endif

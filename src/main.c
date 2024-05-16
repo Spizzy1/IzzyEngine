@@ -113,7 +113,8 @@ int main(int arg, char** args){
     
 
     cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Loading shaders...");
-    struct Shader* shader = loadshader("spriteshader.glsl");
+    struct Shader* shader = malloc(sizeof(struct Shader));
+    loadshader(shader, "spriteshader.glsl");
 
     enable_attribf(0, 3, 6, 0);
     enable_attribf(1, 2, 6, 3);
@@ -127,9 +128,8 @@ int main(int arg, char** args){
     const int ucd = glGetUniformLocation(shader->ID, "cd");
     const int urotate = glGetUniformLocation(shader->ID, "rotate");
     
-    
-
-    struct Texture* friren = load_image("Frierenfriday.png");
+    struct Texture* friren = malloc(sizeof(struct Texture));
+    load_image(friren, "Frierenfriday.png");
     cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Finished loading textures");  
 
     struct Mesh* mesh = malloc(sizeof(struct Mesh));
@@ -157,8 +157,12 @@ int main(int arg, char** args){
     float camera_z = 0;
     float direction = 0;
     float rotate = 0;
-    struct Character* character = load_character(mesh, friren, shader);
-    struct Character* character2 = load_character(mesh2, friren, shader);
+    struct Character* character = malloc(sizeof(struct Character));
+    load_character(character, mesh, friren, shader);
+
+    struct Character* character2 = malloc(sizeof(struct Character));
+    load_character(character2, mesh2, friren, shader);
+
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     character2->physics_object->position.x = 3;
     character2->physics_object->position.z = 0;
@@ -234,5 +238,6 @@ int main(int arg, char** args){
         
         glfwSwapBuffers(window);
     }
+
     glfwTerminate();
 }

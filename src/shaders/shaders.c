@@ -19,9 +19,7 @@ int shaderStatus(unsigned int shader)
     }
     return 0;
 }
-struct Shader* loadshader(const char* name){
-
-    struct Shader* shader = malloc(sizeof(struct Shader));
+void loadshader(struct Shader* shader, const char* name){
 
     shader->ID = glCreateProgram();
     unsigned shaderIDs[3];
@@ -112,7 +110,6 @@ struct Shader* loadshader(const char* name){
     
     glGenVertexArrays(1, &shader->vao);
     glBindVertexArray(shader->vao);
-    return shader;
 }
 
 void select_shader(struct Shader* shader){
