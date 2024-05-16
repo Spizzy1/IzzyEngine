@@ -85,7 +85,7 @@ void enable_attribf(int location, int countf, int totalf, int index){
 }
 
 void testfunc(struct Character* chr, struct Context* ctx){
-    chr->position[1] += 0.01;
+    chr->physics_object->position.y += 0.01;
 }
 int main(int arg, char** args){
 
@@ -160,17 +160,17 @@ int main(int arg, char** args){
     struct Character* character = load_character(mesh, friren, shader);
     struct Character* character2 = load_character(mesh2, friren, shader);
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
-    character2->position[0] = 3;
-    character2->position[1] = 0;
-    character2->position[2] = 1;
+    character2->physics_object->position.x = 3;
+    character2->physics_object->position.z = 0;
+    character2->physics_object->position.y = 1;
 
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
-    character->position[0] = 1;
-    character->position[1] = 0;
-    character->position[2] = 1;
+    character->physics_object->position.x = 1;
+    character->physics_object->position.z = 0;
+    character->physics_object->position.y = 1;
 
-    character2->rotation[1] = 0.12;
-    character->rotation[1] = 0.12;
+    character2->rotation.y = 0.12;
+    character->rotation.y = 0.12;
 
     character2->update_ev = &testfunc;
     CHARACTER_vec_append(context->character_vector, character);
@@ -211,8 +211,8 @@ int main(int arg, char** args){
             camera_z-= cos(direction)*0.03;
             camera_x-= sin(direction)*0.03;
         }        
-        character2->rotation[1] -= 0.32;
-        character->rotation[1] += 0.12;
+        character2->rotation.y -= 0.32;
+        character->rotation.y += 0.12;
         rotate+= 0.12;
         glClearColor(0, 0, 0, 1);        
         glClear(GL_COLOR_BUFFER_BIT);

@@ -7,6 +7,7 @@
 
 #exp files (?)
 *.exp
+*.os
 
 # Precompiled Headers
 *.gch

@@ -39,6 +39,7 @@ void cwlog(const char* Source, int mode, const char *format, ...){
     if (cx < 0 || cix >= max_inf_len){
         printf(RED "Error message buffer overflow (outputting too much data? Max data string size: %x, this string size: %x)\n" RESET, max_len, cx); 
         return;
+
     }
     puts(buffer);
 

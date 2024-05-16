@@ -23,7 +23,7 @@
 
 void cwlog(const char* Source, int mode, const char *format, ...);
 
-struct logger {
+struct Logger {
     const char* name;
     int prints;
     

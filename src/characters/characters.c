@@ -8,16 +8,23 @@ struct Character* load_character(struct Mesh* mesh, struct Texture* texture, str
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
-    memset(character->position, 0, 3*floatsize);
-    memset(character->rotation, 0, 3*floatsize);
+    
+    character->physics_object->position.x = 0;
+    character->physics_object->position.x = 0;
+    character->physics_object->position.x = 0;
+
+    character->rotation.x = 0;
+    character->rotation.y = 0;
+    character->rotation.z = 0;
+
     return character;
 }
 
 void character_mesh_update(struct Character* character){
-    ((float*)character->mesh->data)[0] = character->position[0];
-    ((float*)character->mesh->data)[1] = character->position[1];
-    ((float*)character->mesh->data)[2] = character->position[2];
-    ((float*)character->mesh->data)[5] = character->rotation[1];
+    ((float*)character->mesh->data)[0] = character->physics_object->position.x; 
+    ((float*)character->mesh->data)[1] = character->physics_object->position.y;
+    ((float*)character->mesh->data)[2] = character->physics_object->position.z;
+    ((float*)character->mesh->data)[5] = character->rotation.y;
 
 
 }
