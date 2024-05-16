@@ -8,7 +8,7 @@ struct Texture{
     unsigned ID;
 };
 
-struct Texture* load_image(const char* path);
+struct Texture* load_image(struct Texture* texture, const char* path);
 void select_texture(struct Texture* texture, int uniform);
 
 #endif

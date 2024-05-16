@@ -13,11 +13,10 @@ void select_texture(struct Texture* texture, int uniform){
         cwlog("Texture Loader", LOGGER_ERROR, "Expected texture, got %d", texture); 
     }
 }
-struct Texture* load_image(const char* path){
+struct Texture* load_image(struct Texture* texture, const char* path){
 
     printf("\n-- LOADING TEXTURE: %s --\n", path);
     //Rember evil
-    struct Texture* texture = malloc(sizeof(struct Texture));
     unsigned char* bytes = stbi_load(path, &texture->width, &texture->height, &texture->bpp, 4);
     cwlog(path, LOGGER_INFO, "Loaded image");
     glGenTextures(1, &texture->ID);

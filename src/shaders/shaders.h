@@ -7,7 +7,7 @@ struct Shader{
 };
 
 
-struct Shader* loadshader(const char* name);
+void loadshader(struct Shader* shader, const char* name);
 int shaderStatus(unsigned int shader);
 
 void select_shader(struct Shader* shader);

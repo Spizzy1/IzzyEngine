@@ -2,15 +2,14 @@
 #include "../Collections/libraries.h"
 #include "../Collections/base_rendering.h"
 
-struct Character* load_character(struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
-    struct Character* character = malloc(sizeof(struct Character));
+void load_character(struct Character* character, struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
+
     character->update_ev = 0;
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
     memset(character->position, 0, 3*floatsize);
     memset(character->rotation, 0, 3*floatsize);
-    return character;
 }
 
 void character_mesh_update(struct Character* character){
@@ -30,5 +29,4 @@ void render_character(struct Character* character){
 
 }
 void remove_character(struct Character* character){
-
 }
