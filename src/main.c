@@ -179,31 +179,30 @@ int main(int arg, char** args){
 
     character2->rotation.y = 0.12;
     character->rotation.y = 0.12;
+    
+    character->physics_object->acceleration.x = 0.1;
+    character2->physics_object->acceleration.x = 0.0;
 
     character2->update_ev = &testfunc;
     CHARACTER_vec_append(context->character_vector, character);
     CHARACTER_vec_append(context->character_vector, character2);
 
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
-    float targetFps = 60;
+    const float targetFps = 60;
     float lTime = 0;
     int lSecond = 0;
     int frameCount = 0;
     int test;
     glfwSetTime(0);
     glfwSetKeyCallback(window, eventHandling);
+    struct PHYS_PTR_vec* phys = PHYS_PTR_vec(0);
+    PHYS_PTR_vec_append(phys, charphys);
+    PHYS_PTR_vec_append(phys, charphys2);
     //glEnableClientState(GL_VERTEX_ARRAY);
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     cwlog(GRAPHICS_SOURCE, LOGGER_INFO, "OpenGL Version: %s", glGetString(GL_VERSION));
+    float prevtime = glfwGetTime();
     while(!glfwWindowShouldClose(window)){
-        while (glfwGetTime() - lTime < 1 / targetFps);
-        if (glfwGetTime() - 1 >= lSecond)
-        {
-            lSecond++;
-            frameCount = 0;
-        }
-        lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
-        frameCount++;
         glfwPollEvents();
         if(left){
            direction-= 0.03;
@@ -222,6 +221,20 @@ int main(int arg, char** args){
         character2->rotation.y -= 0.32;
         character->rotation.y += 0.12;
         rotate+= 0.12;
+
+        while (glfwGetTime() - lTime < 1 / targetFps);
+        if (glfwGetTime() - 1 >= lSecond)
+        {
+            lSecond++;
+            frameCount = 0;
+        }
+        lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
+        frameCount++;
+        
+        float dt = glfwGetTime() - prevtime;
+        prevtime = glfwGetTime();
+        float* a = {0,0,0};
+        physics_update(phys, context, a, dt);
         glClearColor(0, 0, 0, 1);        
         glClear(GL_COLOR_BUFFER_BIT);
         glUniform1f(ucx, camera_x);

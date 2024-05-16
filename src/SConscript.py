@@ -7,6 +7,7 @@ src_files = [
     "meshes/meshes.c",
     "textures/textures.c",
     "CWE/logger.c",
+    "Physics/physics.c",
     "main.c"
 ]
 

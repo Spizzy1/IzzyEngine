@@ -5,16 +5,13 @@
 void load_character(struct Character* character, struct Physics_Object* physics_object, struct Mesh* mesh, struct Texture* texture, struct Shader* shader){
 
     character->update_ev = 0;
-    printf("wowaw\n");
     character->physics_object = physics_object;
     character->shader = shader;
     character->mesh = mesh;
     character->texture = texture; 
-    printf("thatsus\n");
-    character->physics_object->position.x = 0;
-    character->physics_object->position.x = 0;
-    character->physics_object->position.x = 0;
-    printf("What\n");
+    memset(&character->physics_object->position, 0, sizeof(struct Vec3));
+    memset(&character->physics_object->velocity, 0, sizeof(struct Vec3));
+    memset(&character->physics_object->acceleration, 0, sizeof(struct Vec3));
     character->rotation.x = 0;
     character->rotation.y = 0;
     character->rotation.z = 0;
