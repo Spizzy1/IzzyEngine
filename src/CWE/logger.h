@@ -21,11 +21,12 @@
 #define max_len 255
 #define tot_len 318
 
-void cwlog(const char* Source, int mode, const char *format, ...);
-
 struct Logger {
-    const char* name;
+    char* source;
     int prints;
-    
 };
+
+void Logger(struct Logger* logger, char* source);
+void cwlog(struct Logger* logger, int mode, const char *format, ...);
+
 #endif

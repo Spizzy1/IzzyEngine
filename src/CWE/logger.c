@@ -2,8 +2,18 @@
 #include <stdarg.h>
 #include <string.h>
 #include "logger.h"
-void cwlog(const char* Source, int mode, const char *format, ...){
+
+void Logger(struct Logger* logger, char* source){
+    
+    logger->source=source;
+    logger->prints=1;
+}
+
+void cwlog(struct Logger* logger, int mode, const char *format, ...){
     int cx = 0;
+    char* Source = logger->source;
+    
+    if(!logger->prints) return;
 
     char buffer [tot_len];
     va_list args;

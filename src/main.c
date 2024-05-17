@@ -12,8 +12,8 @@ int right = 0;
 int up = 0;
 int down = 0;
 int left = 0;
-const char* GRAPHICS_SOURCE = "Graphics Pipeline";
-const char* WINDOW_SOURCE = "Window";
+struct Logger* GRAPHICS_SOURCE;
+struct Logger* WINDOW_SOURCE;
 
 void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mods){
     if(action == GLFW_PRESS){
@@ -79,7 +79,7 @@ GLFWwindow* init(const int win_width, const int win_height, const char* name){
     return window;
 }
 void enable_attribf(int location, int countf, int totalf, int index){
-    cwlog("GRAPHICS PIPELINE", LOGGER_SETUP, "Assigning attribute pointer %d", location);
+    cwlog(GRAPHICS_SOURCE, LOGGER_SETUP, "Assigning attribute pointer %d", location);
     glVertexAttribPointer(location, countf, GL_FLOAT, false, totalf*floatsize, (void*)(index*floatsize));
     glEnableVertexAttribArray(location);
 
@@ -92,6 +92,12 @@ int main(int arg, char** args){
 
     const int width = 640; 
     const int height = 480;
+    
+    GRAPHICS_SOURCE = malloc(sizeof(struct Logger));
+    WINDOW_SOURCE = malloc(sizeof(struct Logger));
+
+    Logger(GRAPHICS_SOURCE, "Graphics Pipeline");
+    Logger(WINDOW_SOURCE, "Window Initializer");
 
     GLFWwindow* window = init(width, height, "IzzyEngine");
 
@@ -202,6 +208,9 @@ int main(int arg, char** args){
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     cwlog(GRAPHICS_SOURCE, LOGGER_INFO, "OpenGL Version: %s", glGetString(GL_VERSION));
     float prevtime = glfwGetTime();
+
+    free(GRAPHICS_SOURCE);
+    free(WINDOW_SOURCE);
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
         if(left){
