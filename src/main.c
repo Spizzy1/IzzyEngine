@@ -6,7 +6,6 @@
 #include "characters/characters.h"
 #include <stdio.h>
 #include "context.h"
-#include "CWE/logger.h"
 
 int right = 0;
 int up = 0;

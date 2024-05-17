@@ -7,8 +7,6 @@ env.Append(CPPPATH="#thirdparty/glew/include")
 src_files=glob.glob("src/glew.c")
 LIBS =[]+env["LIBS"]
 
-LIBS.remove("glfw")
-LIBS.remove("GLEW")
 print(f"glew dependencies: {LIBS}")
 
 env.SharedLibrary("#build/GLEW", src_files,LIBS=LIBS)

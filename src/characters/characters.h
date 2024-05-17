@@ -1,11 +1,9 @@
 #ifndef CHARACTERS_H_INCLUDED
 #define CHARACTERS_H_INCLUDED
 
+#include "../Collections/libraries.h"
 #include "../Collections/base_rendering.h"
 #include "../Events/events.h"
-#include "../CWE/vec.h"
-#include "../CWE/logger.h"
-#include "../CWE/cwmath.h"
 #include "../context.h"
 #include "../Physics/physics.h"
 

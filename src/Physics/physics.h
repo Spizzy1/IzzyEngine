@@ -1,6 +1,6 @@
 #ifndef PHYSICS_H_INCLUDED
 #define PHYSICS_H_INCLUDED
-#include "../CWE/cwmath.h"
+#include <CWE/cwmath.h>
 #include "../context.h"
 
 struct Physics_Object{

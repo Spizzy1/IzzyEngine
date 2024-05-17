@@ -6,14 +6,14 @@ src_files = [
     "characters/characters.c",
     "meshes/meshes.c",
     "textures/textures.c",
-    "CWE/logger.c",
     "Physics/physics.c",
     "main.c"
 ]
 
+LIBS =["GLEW", "glfw", "CWE"]+env["LIBS"]
 print("Starting build process!")
 print(env['CPPPATH'])
-engine = env.Program("IzzyEngine", src_files)
+engine = env.Program("IzzyEngine", src_files, LIBS=LIBS)
 
 print("Copying extra dependent files")
 ext = glob.glob("../resources/*")

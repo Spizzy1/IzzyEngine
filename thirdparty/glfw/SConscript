@@ -26,8 +26,7 @@ if env['selected_platform'] != "linuxbsd":
     src_files = substrfilter(src_files, ["x11_"])
     src_files = substrfilter(src_files, ["wl_"])
 
-LIBS =[]+env["LIBS"]
-LIBS.remove("glfw")
+LIBS =["GLEW"]+env["LIBS"]
 print(f"glfw dependencies: {LIBS}")
 
 print(f"glfw source files: {src_files}")

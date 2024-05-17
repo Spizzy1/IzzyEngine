@@ -1,4 +1,4 @@
-#include "cwmath.h"
+#include <CWE/cwmath.h>
 
 struct Vec3 MVult(struct Mat3 X, struct Vec3 v){
 
