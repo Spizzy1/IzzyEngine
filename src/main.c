@@ -233,7 +233,7 @@ int main(int arg, char** args){
         
         float dt = glfwGetTime() - prevtime;
         prevtime = glfwGetTime();
-        float* a = {0,0,0};
+        float a[3] = {0,0,0};
         physics_update(phys, context, a, dt);
         glClearColor(0, 0, 0, 1);        
         glClear(GL_COLOR_BUFFER_BIT);
