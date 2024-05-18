@@ -4,7 +4,7 @@ const int CHUNK_WIDTH = 10;
 const int CHUNK_HEIGHT = 10;
 const int CHUNK_AMOUNT = 10;
 //PHYS_PTR** chunks
-void physics_update(struct PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt){
+void physics_update(PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt){
    for(int i = 0; i < objects->size; i++){
         PHYS_PTR object = objects->data[i];
         
@@ -24,6 +24,6 @@ void physics_update(struct PHYS_PTR_vec* objects, struct Context* ctx, float* of
 
     }
 }
-struct PHYSVEC_vec* init_chunks(struct PHYS_PTR_vec* objects){
+struct PHYSVEC_vec* init_chunks(PHYS_PTR_vec* objects){
 
 }

@@ -27,6 +27,6 @@ struct Logger {
 };
 
 void Logger(struct Logger* logger, char* source);
-void cwlog(struct Logger* logger, int mode, const char *format, ...);
+void cwlog(struct Logger* logger, int mode, char *format, ...);
 
 #endif

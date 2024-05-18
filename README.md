@@ -70,6 +70,7 @@ Alternatively both of these steps can be done using
   - [ ] Dynamic substeps
   - [ ] Collisions
     - [ ] Event callback on collision
+  - [x] Acceleration and velocity update   
 
 - [x] Subscribable event loop
   - [ ] Clickable objects
@@ -96,5 +97,5 @@ Alternatively both of these steps can be done using
     - [ ] Memory management
   - [x]  Custom logger
     - [ ] Have it output to files
-    - [ ] Use structs instead of strings
+    - [x] Use structs instead of strings
     - [ ] Use my custom strings for the logic instead of tons of memory calls

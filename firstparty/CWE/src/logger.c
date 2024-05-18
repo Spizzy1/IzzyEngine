@@ -9,7 +9,7 @@ void Logger(struct Logger* logger, char* source){
     logger->prints=1;
 }
 
-void cwlog(struct Logger* logger, int mode, const char *format, ...){
+void cwlog(struct Logger* logger, int mode, char *format, ...){
     int cx = 0;
     char* Source = logger->source;
     

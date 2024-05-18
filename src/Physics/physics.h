@@ -12,12 +12,12 @@ struct Physics_Object{
 
 
 typedef struct Physics_Object* PHYS_PTR;
-declVec(PHYS_PTR);
+declVec(PHYS_PTR, PHYS_PTR_vec);
 
-typedef struct PHYS_PTR_vec PHYSVEC;
-declVec(PHYSVEC);
+typedef PHYS_PTR_vec PHYSVEC;
+declVec(PHYSVEC, PHYSVEC_vec);
 
-void physics_update(struct PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt);
-struct PHYSVEC_vec* init_chunks(struct PHYS_PTR_vec* objects);
+void physics_update(PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt);
+struct PHYSVEC_vec* init_chunks(PHYS_PTR_vec* objects);
 
 #endif

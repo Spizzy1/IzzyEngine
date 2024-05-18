@@ -13,6 +13,10 @@ src_files = [
 LIBS =["GLEW", "glfw", "CWE"]+env["LIBS"]
 print("Starting build process!")
 print(env['CPPPATH'])
+
+env.Tool('compilation_db')
+env.CompilationDatabase()
+
 engine = env.Program("IzzyEngine", src_files, LIBS=LIBS)
 
 print("Copying extra dependent files")

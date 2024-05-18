@@ -104,7 +104,7 @@ int main(int arg, char** args){
     // NO EVENT CALLS OR APPENDS SHOULD HAPPEN BEFORE THIS FUNCTION CALL. I don't know how to get the allocations to happen at compile-time.
     // If you really wanna make stuff happen before that you're in "Editing the engine code" territory.
     struct Context* context = malloc(sizeof(struct Context));
-    context->character_vector = CHARACTER_vec(0);
+    context->character_vector = new_vec(CHARACTER,  0);
     
     if(!window){
         cwlog(WINDOW_SOURCE,LOGGER_ERROR, "Failed to initialize");
@@ -189,8 +189,8 @@ int main(int arg, char** args){
     character2->physics_object->acceleration.x = 0.0;
 
     character2->update_ev = &testfunc;
-    CHARACTER_vec_append(context->character_vector, character);
-    CHARACTER_vec_append(context->character_vector, character2);
+    vec_append(context->character_vector, character);
+    vec_append(context->character_vector, character2);
 
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     const float targetFps = 60;
@@ -200,9 +200,10 @@ int main(int arg, char** args){
     int test;
     glfwSetTime(0);
     glfwSetKeyCallback(window, eventHandling);
-    struct PHYS_PTR_vec* phys = PHYS_PTR_vec(0);
-    PHYS_PTR_vec_append(phys, charphys);
-    PHYS_PTR_vec_append(phys, charphys2);
+    PHYS_PTR_vec* phys = new_vec(PHYS_PTR, 0);
+    
+    vec_append(phys, charphys);
+    vec_append(phys, charphys2);
     //glEnableClientState(GL_VERTEX_ARRAY);
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     cwlog(GRAPHICS_SOURCE, LOGGER_INFO, "OpenGL Version: %s", glGetString(GL_VERSION));

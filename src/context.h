@@ -9,11 +9,11 @@ struct Context;
 
 typedef struct Character* CHARACTER;
 
-declVec(CHARACTER);
+declVec(CHARACTER, CHARACTER_vec);
 
 struct Context
 {
-    struct CHARACTER_vec* character_vector;
+    CHARACTER_vec* character_vector;
 
 };
 

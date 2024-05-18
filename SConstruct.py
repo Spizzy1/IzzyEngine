@@ -1,6 +1,6 @@
 import os
 import sys
-env = Environment(CPPPATH=["#include"])
+env = Environment(CPPPATH=["#include"], COMPILATIONDB_USE_ABSPATH=True)
 
 selected_platform = ""
 if selected_platform == "":
