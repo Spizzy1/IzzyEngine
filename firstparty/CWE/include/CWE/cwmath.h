@@ -1,6 +1,7 @@
 #ifndef CWE_MATH_DEFINED
 #define CWE_MATH_DEFINED
 #include <math.h>
+#include <stdio.h>
 
 struct Vec3{
     float x;
@@ -39,6 +40,7 @@ static inline struct Vec3 scale(struct Vec3 v, float scalar){
 
 static inline struct Vec3 add(struct Vec3 v, struct Vec3 w){
     struct Vec3 out;
+    printf("Testingtesting\n");
     out.x = v.x+w.x;
     out.y = v.y+w.y;
     out.z = v.z+w.z;

@@ -204,6 +204,7 @@ int main(int arg, char** args){
     
     vec_append(phys, charphys);
     vec_append(phys, charphys2);
+
     //glEnableClientState(GL_VERTEX_ARRAY);
     cwlog(GRAPHICS_SOURCE, LOGGER_WARN, "Graphics error, ignore if 0: %d", glGetError());
     cwlog(GRAPHICS_SOURCE, LOGGER_INFO, "OpenGL Version: %s", glGetString(GL_VERSION));
@@ -212,6 +213,7 @@ int main(int arg, char** args){
     free(GRAPHICS_SOURCE);
     free(WINDOW_SOURCE);
     while(!glfwWindowShouldClose(window)){
+        printf("Test\n");
         glfwPollEvents();
         if(left){
            direction-= 0.03;
@@ -239,17 +241,18 @@ int main(int arg, char** args){
         }
         lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
         frameCount++;
-        
+        printf("Test2\n");
         float dt = glfwGetTime() - prevtime;
         prevtime = glfwGetTime();
         float a[3] = {0,0,0};
+        printf("Test3\n");
         physics_update(phys, context, a, dt);
         glClearColor(0, 0, 0, 1);        
         glClear(GL_COLOR_BUFFER_BIT);
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
-
+        printf("Test4\n");
         //This amount of ponter dereferencing could probably be optimized...
         
         for(int i = 0; i < context->character_vector->mem_size; i++){
@@ -261,7 +264,7 @@ int main(int arg, char** args){
                 }
             }
         }
-        
+        printf("Test5\n");
         glfwSwapBuffers(window);
     }
 

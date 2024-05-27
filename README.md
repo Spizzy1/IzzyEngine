@@ -35,6 +35,8 @@ Implementing a vector of functions that are called upon certain events by the in
 
 Install "scons", instructions can be found [here](https://scons.org/doc/4.0.1/HTML/scons-user/ch01s02.html). If any issues arise, feel free to open an issue (Although this is not intended for commercial use and thus it is up to potential maintainers to fix).
 
+For windows you will need to install the mingw toolchain as specified [here](https://code.visualstudio.com/docs/cpp/config-mingw).
+
 Compiling the engine is as simple as running:
 ```
 scons

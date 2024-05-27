@@ -1,6 +1,6 @@
 import os
 import sys
-env = Environment(CPPPATH=["#include"], COMPILATIONDB_USE_ABSPATH=True)
+
 
 selected_platform = ""
 if selected_platform == "":
@@ -24,13 +24,18 @@ if selected_platform != "":
 
 libpath = ["." , "#thirdparty/glew", "#thirdparty/glfw", "#firstparty/CWE"]
 session = ""
-env['selected_platform'] = selected_platform
+
+
 if selected_platform == "windows":
+    env = Environment(CPPPATH=["#include"], tools=["mingw"], COMPILATIONDB_USE_ABSPATH=True)
     env["LIBS"] = ["opengl32", "User32", "Gdi32", "Shell32"]
     env.Append(LIBPATH=["C:\lib", "D:\lib"]+libpath)
 elif selected_platform == "linuxbsd":
+    env = Environment(CPPPATH=["#include"], COMPILATIONDB_USE_ABSPATH=True)
     env["LIBS"] = ["GL", "m"]
     env.Append(LIBPATH=['/usr/lib','/usr/local/lib']+libpath)
+
+env['selected_platform'] = selected_platform
 
 Export('env')
 
