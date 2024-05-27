@@ -7,13 +7,9 @@ const int CHUNK_AMOUNT = 10;
 void physics_update(PHYS_PTR_vec* objects, struct Context* ctx, float* offset, float dt){
    for(int i = 0; i < objects->size; i++){
         PHYS_PTR object = objects->data[i];
-        printf("Test\n");
-        printf("Hello");
-        printf("%d", object->position);
         object->position = add(object->position, scale(object->velocity, dt));
         object->position = add(object->position, scale(object->acceleration, dt*dt/2));
         object->velocity = add(object->velocity, scale(object->acceleration, dt));
-        printf("Test\n");
         //Unused for now
         //int chunk_x = floor((object->position.x+offset[0])/CHUNK_WIDTH);
         //int chunk_y = floor((object->position.y+offset[1])/CHUNK_HEIGHT);

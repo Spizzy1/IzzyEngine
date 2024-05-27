@@ -13,6 +13,7 @@ int down = 0;
 int left = 0;
 struct Logger* GRAPHICS_SOURCE;
 struct Logger* WINDOW_SOURCE;
+struct Logger* CORE_SOURCE;
 
 void eventHandling(GLFWwindow* window, int key, int scancode, int action, int mods){
     if(action == GLFW_PRESS){
@@ -89,14 +90,24 @@ void testfunc(struct Character* chr, struct Context* ctx){
 }
 int main(int arg, char** args){
 
-    const int width = 640; 
-    const int height = 480;
-    
     GRAPHICS_SOURCE = malloc(sizeof(struct Logger));
     WINDOW_SOURCE = malloc(sizeof(struct Logger));
+    CORE_SOURCE = malloc(sizeof(struct Logger));
 
     Logger(GRAPHICS_SOURCE, "Graphics Pipeline");
     Logger(WINDOW_SOURCE, "Window Initializer");
+    Logger(CORE_SOURCE, "Core");
+
+    #if defined(__clang__)
+        cwlog(CORE_SOURCE, LOGGER_ERROR, "CLANG compiler detected, which is not officially supported. Check: https://github.com/izzyn/IzzyEngine for installation instructions.");
+    #elif defined(_MSC_VER)
+        cwlog(CORE_SOURCE, LOGGER_ERROR, "MSVC compiler detected, which is not officially supported. Check: https://github.com/izzyn/IzzyEngine for installation instructions.");
+    #endif
+    const int width = 640; 
+    const int height = 480;
+    
+    
+
 
     GLFWwindow* window = init(width, height, "IzzyEngine");
 
@@ -241,18 +252,15 @@ int main(int arg, char** args){
         }
         lTime += (int)((glfwGetTime() - lTime) * targetFps) / targetFps;
         frameCount++;
-        printf("Test2\n");
         float dt = glfwGetTime() - prevtime;
         prevtime = glfwGetTime();
         float a[3] = {0,0,0};
-        printf("Test3\n");
         physics_update(phys, context, a, dt);
         glClearColor(0, 0, 0, 1);        
         glClear(GL_COLOR_BUFFER_BIT);
         glUniform1f(ucx, camera_x);
         glUniform1f(ucz, camera_z);
         glUniform1f(ucd, direction);
-        printf("Test4\n");
         //This amount of ponter dereferencing could probably be optimized...
         
         for(int i = 0; i < context->character_vector->mem_size; i++){
@@ -264,7 +272,6 @@ int main(int arg, char** args){
                 }
             }
         }
-        printf("Test5\n");
         glfwSwapBuffers(window);
     }
 
