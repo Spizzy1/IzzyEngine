@@ -3,7 +3,9 @@
 
 A tool used by me and possible contributors as a vector for learning how rendering and memory management on a lower level, hopefully resulting in a (somewhat) functioning game engine!
 
-Premature warning if you're an experienced C developer looking through this repo, the code might be unorthodox, bad even.
+Premature warning: if you're an experienced C developer looking through this repo, the code might be unorthodox, bad even.
+
+Another warning: The engine is still in its pre-alpha stages, breaking changes are to be expected.
 
 ## What it currently implements
 
